@@ -1,16 +1,15 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using FinalHPMS.Models;
+using FinalHPMS.Services;
 
 namespace FinalHPMS.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController()
     {
-        _logger = logger;
+
     }
 
     public IActionResult Index()

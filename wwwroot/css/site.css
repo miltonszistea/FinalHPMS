@@ -20,3 +20,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.green-bg {
+  background-color: #f0f8ea; /* Color verde claro */
+}
+.greendark-bg {
+  background-color: #11BB4F; /* Color verde oscuro */
+}
+
+
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('Fonts/Poppins-Regular.ttf') format('truetype');
+}
+h1, p {
+  font-family: 'Poppins', sans-serif;
+}

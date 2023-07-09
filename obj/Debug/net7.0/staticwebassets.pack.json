@@ -5,6 +5,78 @@
       "PackagePath": "staticwebassets\\FinalHPMS.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-Black.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-Black.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-BlackItalic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-BlackItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-Bold.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-Bold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-BoldItalic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-BoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-ExtraBold.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-ExtraBold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-ExtraBoldItalic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-ExtraBoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-ExtraLight.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-ExtraLight.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-ExtraLightItalic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-ExtraLightItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-Italic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-Italic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-Light.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-Light.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-LightItalic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-LightItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-Medium.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-Medium.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-MediumItalic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-MediumItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-Regular.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-Regular.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-SemiBold.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-SemiBold.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-SemiBoldItalic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-SemiBoldItalic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-Thin.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-Thin.ttf"
+    },
+    {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\Fonts\\Poppins-ThinItalic.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\Poppins-ThinItalic.ttf"
+    },
+    {
       "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

@@ -1,0 +1,12 @@
+@model List<Product>
+@{
+    ViewData["Title"] = "¡Bienvenidos a PlastiCool!";
+}
+<body class="green-bg">
+      <ul>
+        @foreach (var item in Model)
+        {
+            <li>@item.Name</li>
+        }
+    </ul>
+</body>

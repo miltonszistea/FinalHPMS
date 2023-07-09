@@ -18680,6 +18680,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Product\\Index.cshtml",
+      "TargetPath": "Views\\Product\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
