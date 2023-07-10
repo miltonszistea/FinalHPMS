@@ -33,6 +33,6 @@ public class Community{
 
     public int ProductId {get; set;}
     public virtual List<Product> Products {get; set;}
-    //public int TicketId {get; set;}
-    //public virtual List<Ticket> Tickets {get; set;}
+    public int TicketId {get; set;}
+    public virtual List<Ticket> Tickets {get; set;}
 }

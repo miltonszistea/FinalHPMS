@@ -17,6 +17,12 @@ namespace FinalHPMS.Data
         public DbSet<FinalHPMS.Models.Product> Product { get; set; } = default!;
         public DbSet<FinalHPMS.Models.Community> Community {get;set;} =default!;
 
-        
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+            .HasMany(c=>c.Communities)
+            .WithMany(p=>p.Products)
+            .UsingEntity("ProductCommunity");
+        }*/
     }
 }

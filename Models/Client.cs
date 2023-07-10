@@ -28,6 +28,6 @@ public class Client{
     [Required]
     public required string Mail { get; set; }
 
-    //public int TicketId {get; set;}
-    //public virtual List<Ticket> Tickets {get;set;}
+    public int TicketId {get; set;}
+    public virtual List<Ticket> Tickets {get;set;}
 }
