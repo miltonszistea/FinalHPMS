@@ -14,7 +14,7 @@ public class Product{
     
     [Display(Name="Precio")]
     [Required]
-    public decimal Price { get; set; }
+    public int Price { get; set; }
     
     [Display(Name="Categoría")]
     [Required]
@@ -22,7 +22,7 @@ public class Product{
     
     [Display(Name="Peso")]
     [Required]
-    public decimal WeightKg { get; set; }
+    public int WeightKg { get; set; }
 
     [Display(Name="Envío disponible")]
     [Required]
