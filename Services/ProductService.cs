@@ -13,7 +13,8 @@ public static class ProductService{
             Category=ProductCategory.Machine, 
             Price=3000,
             WeightKg = 900,
-            ShippingAvailable = true},
+            ShippingAvailable = true,
+            Dimension="70x30x40"},
         };
     }
 

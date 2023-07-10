@@ -27,4 +27,8 @@ public class Product{
     [Display(Name="Envío disponible")]
     [Required]
     public bool ShippingAvailable { get; set; }
+
+    [Display(Name="Dimensiones")]
+    [Required]
+    public required string Dimension { get; set; }
 }
