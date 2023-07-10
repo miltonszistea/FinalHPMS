@@ -1,4 +1,5 @@
-@model IEnumerable<FinalHPMS.Models.Product>
+@using FinalHPMS.ViewModels;
+@model ProductViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -12,32 +13,39 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div>
+    <form method="get" asp-action="Index" asp-controller="Product" class="form-inline">
+    <input asp-for="Filter"class="form-control mr-sm-2" type="search" placeholder="Busque por 3 campos: nombre, precio o categoría" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtrar</button>
+  </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Products[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Products[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.Products[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WeightKg)
+                @Html.DisplayNameFor(model => model.Products[0].WeightKg)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ShippingAvailable)
+                @Html.DisplayNameFor(model => model.Products[0].ShippingAvailable)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dimension)
+                @Html.DisplayNameFor(model => model.Products[0].Dimension)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Products) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

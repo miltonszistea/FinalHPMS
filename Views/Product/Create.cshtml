@@ -3,9 +3,11 @@
 @{
     ViewData["Title"] = "Create";
 }
-
+<head>
+    <link rel="stylesheet" href="wwwroot\css\site.css">
+</head>
+<body class="green-bg">
 <h1>Create</h1>
-
 <h4>Product</h4>
 <hr />
 <div class="row">
@@ -25,10 +27,10 @@
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
                 <select asp-for="Category" class="form-control">
-                    <option>Machine</option>
-                    <option>Mould</option>
-                    <option>RawMaterial</option>
-                    <option>Object</option>
+                    <option value="0">Machine</option>
+                    <option value="1">Mould</option>
+                    <option value="2">RawMaterial</option>
+                    <option value="3">Object</option>
                 </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
@@ -57,7 +59,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+</body>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalHPMS.Data;
 using FinalHPMS.Models;
+using FinalHPMS.ViewModels;
 
 namespace FinalHPMS.Controllers
 {
@@ -20,10 +21,19 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Product
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filter)
         {
+            var query = from product in _context.Product select product;
+            if(!string.IsNullOrEmpty(filter))
+            {
+                query = query.Where(x=> x.Name.Contains(filter));
+            }
+
+            var model = new ProductViewModel();
+            model.Products = await query.ToListAsync();
+
               return _context.Product != null ? 
-                          View(await _context.Product.ToListAsync()) :
+                          View(model) :
                           Problem("Entity set 'ProductContext.Product'  is null.");
         }
 
