@@ -9,7 +9,7 @@ public static class ProductService{
         Products = new List<Product>
         {
             new Product { Name = "Shredder Pro", 
-            Id="SHDR12", 
+            Id=1, 
             Category=ProductCategory.Machine, 
             Price=3000,
             WeightKg = 900,
@@ -34,5 +34,5 @@ public static class ProductService{
             Products.Remove(productToDelete);
         }
     }
-    public static Product? Get(string code) => Products.FirstOrDefault(x => x.Id.ToLower() == code.ToLower());
+    public static Product? Get(string code) => Products.FirstOrDefault(x => x.Id.ToString().ToLower() == code.ToLower());
 }

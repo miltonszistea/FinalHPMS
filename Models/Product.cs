@@ -6,7 +6,7 @@ namespace FinalHPMS.Models;
 public class Product{
     
     [Required]
-    public string Id { get; set; }
+    public int Id { get; set; }
 
     [Display(Name="Nombre")]
     [Required]
