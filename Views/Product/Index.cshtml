@@ -8,17 +8,28 @@
     <link rel="stylesheet" href="wwwroot\css\site.css">
 </head>
 <body class="green-bg">
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div>
-    <form method="get" asp-action="Index" asp-controller="Product" class="form-inline">
-    <input asp-for="Filter"class="form-control mr-sm-2" type="search" placeholder="Busque por 3 campos: nombre, precio o categoría" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtrar</button>
-  </form>
+<h2 class="mb-0">Gestione los productos de PlastiCool</h2>
+<br>
+
+<div class="row">
+    <form method="get" asp-action="Index" asp-controller="Product">
+        <div class = "col-6 form-group">
+        <input asp-for="Filter" class="form-control" type="search" placeholder="Busque por 3 campos: nombre, precio o categoría" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtrar</button>
+        </div>
+    </form>
 </div>
+
+<br>
+    <p>
+        <a asp-action="Create"
+        class="btn btn-primary btn-lg active" role="button" aria-pressed="true"
+        >
+            Agregue un producto al stock disponible
+            </a>
+    </p>
+<br>
 
 <table class="table">
     <thead>
@@ -40,6 +51,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Products[0].Dimension)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Products[0].Stock)
             </th>
             <th></th>
         </tr>
@@ -64,6 +78,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Dimension)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

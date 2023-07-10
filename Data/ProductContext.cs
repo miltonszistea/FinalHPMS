@@ -15,5 +15,8 @@ namespace FinalHPMS.Data
         }
 
         public DbSet<FinalHPMS.Models.Product> Product { get; set; } = default!;
+        public DbSet<FinalHPMS.Models.Community> Community {get;set;} =default!;
+
+        
     }
 }

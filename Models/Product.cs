@@ -31,4 +31,10 @@ public class Product{
     [Display(Name="Dimensiones")]
     [Required]
     public required string Dimension { get; set; }
+
+    [Display(Name="Stock Actual")]
+    [Required]
+    public int Stock { get; set; }
+
+    public virtual List<Community> Communities {get;set;}
 }
