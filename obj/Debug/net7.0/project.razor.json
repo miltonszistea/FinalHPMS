@@ -18655,6 +18655,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Client\\Index.cshtml",
+      "TargetPath": "Views\\Client\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Community\\Delete.cshtml",
       "TargetPath": "Views\\Community\\Delete.cshtml",
       "FileKind": "mvc"
@@ -18677,6 +18682,16 @@
     {
       "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Community\\Index.cshtml",
       "TargetPath": "Views\\Community\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Client\\Delete.cshtml",
+      "TargetPath": "Views\\Client\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Client\\Create.cshtml",
+      "TargetPath": "Views\\Client\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -18715,8 +18730,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Client\\Edit.cshtml",
+      "TargetPath": "Views\\Client\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Product\\Index.cshtml",
       "TargetPath": "Views\\Product\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Client\\Details.cshtml",
+      "TargetPath": "Views\\Client\\Details.cshtml",
       "FileKind": "mvc"
     },
     {

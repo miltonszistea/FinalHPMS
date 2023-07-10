@@ -17,12 +17,21 @@ namespace FinalHPMS.Data
         public DbSet<FinalHPMS.Models.Product> Product { get; set; } = default!;
         public DbSet<FinalHPMS.Models.Community> Community {get;set;} =default!;
 
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
             modelBuilder.Entity<Product>()
             .HasMany(c=>c.Communities)
             .WithMany(p=>p.Products)
-            .UsingEntity("ProductCommunity");
-        }*/
+            .UsingEntity("ProductCommunity");*/
+        
+            modelBuilder.Entity<Client>()
+            .HasMany(c=>c.Tickets)
+            .WithOne()
+            .HasForeignKey(c=>c.ClientId);
+        
+        }
+
+        public DbSet<FinalHPMS.Models.Client> Client { get; set; } = default!;
     }
 }
