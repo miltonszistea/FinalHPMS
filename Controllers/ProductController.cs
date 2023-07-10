@@ -26,7 +26,9 @@ namespace FinalHPMS.Controllers
             var query = from product in _context.Product select product;
             if(!string.IsNullOrEmpty(filter))
             {
-                query = query.Where(x=> x.Name.Contains(filter));
+                query = query.Where(x => x.Name.Contains(filter) ||
+                             x.Price.ToString().Contains(filter));
+                
             }
 
             var model = new ProductViewModel();
