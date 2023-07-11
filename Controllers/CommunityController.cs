@@ -31,6 +31,7 @@ namespace FinalHPMS.Controllers
                              ||x.Mail.ToString().Contains(filtercommunity));
                 
             }
+            var products = query.Include(p=>p.Products).Select(p=>p.Products).ToList();
             var model = new CommunityViewModel();
             model.Communities = await query.ToListAsync();
 
@@ -69,15 +70,29 @@ namespace FinalHPMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CityAndCountry,Address,Phone,Mail,CommunityType,ProductId")] Community community)
+        public async Task<IActionResult> Create(CommunityCreateViewModel community)
         {
+
+            var model = new CommunityCreateViewModel() {
+                    Name = community.Name,
+                    CityAndCountry = community.CityAndCountry,
+                    Address = community.Address,
+                    Phone = community.Phone,
+                    Mail = community.Mail,
+                    CommunityType = community.CommunityType,
+                    //Products = new List<SelectListItem>(),
+                    ProductsIds = new List<int>()
+                    };
+
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(community);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductId);
+            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductsIds);
             return View(community);
         }
 

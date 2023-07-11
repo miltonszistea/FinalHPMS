@@ -33,7 +33,6 @@ namespace FinalHPMS.ViewModels
         public CommunityType CommunityType { get; set; }
 
         public virtual List<SelectListItem>? Products { get; set; }
-        public virtual Product? Product { get; set; }
         public List<int> ProductsIds { get; set; }
         
     }

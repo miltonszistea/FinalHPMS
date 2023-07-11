@@ -54,6 +54,17 @@ namespace FinalHPMS.Controllers
                 return NotFound();
             }
 
+            var viewModel = new ProductDetailViewModel();
+            viewModel.Name = product.Name;
+            viewModel.Dimension = product.Dimension;
+            viewModel.Category = product.Category;
+            viewModel.WeightKg = product.WeightKg;
+            viewModel.ShippingAvailable = product.ShippingAvailable;
+            viewModel.Stock = product.Stock;
+            viewModel.Price = product.Price;
+            viewModel.Communities = product.Communities;
+
+
             return View(product);
         }
 

@@ -56,6 +56,15 @@
             @Html.DisplayFor(model => model.Stock)
         </dd>
     </dl>
+    <div>
+        <ol>
+            @foreach (var item in Model.Communities)
+            {
+                <li>@item.Name (@item.CityAndCountry)</li>
+            }
+        </ol>
+    </div>
+
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
