@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalHPMS.Data;
 using FinalHPMS.Models;
+using FinalHPMS.ViewModels;
 
 namespace FinalHPMS.Controllers
 {
@@ -20,10 +21,22 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Community
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filtercommunity)
         {
-            var productContext = _context.Community;
-            return View(await productContext.ToListAsync());
+            var query = from community in _context.Community select community ;
+            if(!string.IsNullOrEmpty(filtercommunity))
+            {
+                query = query.Where(x => x.Name.Contains(filtercommunity) ||
+                             x.CityAndCountry.ToString().Contains(filtercommunity)
+                             ||x.Mail.ToString().Contains(filtercommunity));
+                
+            }
+            var model = new CommunityViewModel();
+            model.Communities = await query.ToListAsync();
+
+                return _context.Community != null ? 
+                View(model) :
+                Problem("Entity set 'ProductContext.Product'  is null.");
         }
 
         // GET: Community/Details/5

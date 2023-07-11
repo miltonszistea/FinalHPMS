@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalHPMS.Data;
 using FinalHPMS.Models;
+using FinalHPMS.ViewModels;
 
 namespace FinalHPMS.Controllers
 {
@@ -20,11 +21,22 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Client
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filterclient)
         {
-              return _context.Client != null ? 
-                          View(await _context.Client.ToListAsync()) :
-                          Problem("Entity set 'ProductContext.Client'  is null.");
+             var query = from client in _context.Client select client ;
+            if(!string.IsNullOrEmpty(filterclient))
+            {
+                query = query.Where(x => x.Name.Contains(filterclient) ||
+                             x.Apellido.ToString().Contains(filterclient)
+                             ||x.Mail.ToString().Contains(filterclient));
+                
+            }
+            var model = new ClientViewModel();
+            model.Clients = await query.ToListAsync();
+
+                return _context.Community != null ? 
+                View(model) :
+                Problem("Entity set 'ProductContext.Product'  is null.");
         }
 
         // GET: Client/Details/5

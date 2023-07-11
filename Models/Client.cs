@@ -10,7 +10,7 @@ public class Client{
 
     [Display(Name="Nombre")]
     [Required]
-    public required string Name { get; set; }
+    public string? Name { get; set; }
     
     [Display(Name="Apellido")]
     [Required]

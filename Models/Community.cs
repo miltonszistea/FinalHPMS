@@ -6,29 +6,29 @@ public class Community{
     
     [Required]
     public int Id { get; set; }
-
-    [Display(Name="Nombre")]
+    
     [Required]
+    [Display(Name="Nombre")]
     public required string Name { get; set; }
     
-    [Display(Name="Ciudad-País")]
     [Required]
+    [Display(Name="Ciudad-País")]
     public required string CityAndCountry { get; set; }
     
-    [Display(Name="Dirección")]
     [Required]
+    [Display(Name="Dirección")]
     public required string Address { get; set; }
     
-    [Display(Name="Teléfono")]
     [Required]
+    [Display(Name="Teléfono")]
     public required string Phone { get; set; }
 
-    [Display(Name="Mail")]
     [Required]
+    [Display(Name="Mail")]
     public required string Mail { get; set; }
     
-    [Display(Name="Tipo de Comunidad")]
     [Required]
+    [Display(Name="Tipo de Comunidad")]
     public CommunityType CommunityType { get; set; }
 
     public int ProductId {get; set;}
