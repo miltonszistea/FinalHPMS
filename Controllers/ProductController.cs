@@ -47,7 +47,7 @@ namespace FinalHPMS.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var product = await _context.Product.Include(x=>x.Communities)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {

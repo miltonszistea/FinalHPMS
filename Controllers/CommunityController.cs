@@ -80,7 +80,7 @@ namespace FinalHPMS.Controllers
                     Phone = community.Phone,
                     Mail = community.Mail,
                     CommunityType = community.CommunityType,
-                    //Products = new List<SelectListItem>(),
+                    Products = community.Products != null? community.Products : new List<SelectListItem>(),
                     ProductsIds = new List<int>()
                     };
 
@@ -92,7 +92,9 @@ namespace FinalHPMS.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductsIds);
+
+            //ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductsIds);
+            
             return View(community);
         }
 

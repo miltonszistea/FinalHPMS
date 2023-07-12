@@ -8,27 +8,21 @@ namespace FinalHPMS.ViewModels
 {
     public class CommunityCreateViewModel
     {
-        [Required]
         [Display(Name = "Comunidad")]
         public string Name { get; set; }
     
-        [Required]
         [Display(Name="Ciudad-País")]
-        public required string CityAndCountry { get; set; }
+        public  string CityAndCountry { get; set; }
         
-        [Required]
         [Display(Name="Dirección")]
-        public required string Address { get; set; }
+        public  string Address { get; set; }
         
-        [Required]
         [Display(Name="Teléfono")]
-        public required string Phone { get; set; }
+        public  string Phone { get; set; }
 
-        [Required]
         [Display(Name="Mail")]
-        public required string Mail { get; set; }
-        
-        [Required]
+        public  string Mail { get; set; }
+  
         [Display(Name="Tipo de Comunidad")]
         public CommunityType CommunityType { get; set; }
 
