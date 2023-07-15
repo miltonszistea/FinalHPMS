@@ -1,6 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace FinalHPMS.Models;
 
 public class Product{
@@ -36,6 +36,6 @@ public class Product{
     [Required]
     public int Stock { get; set; }
 
-    public int CommunityId{get;set;}
-    public virtual List<Community> Communities {get;set;}
+    public int? CommunityId{get;set;}
+    public virtual List<Community>? Communities {get;set;} 
 }

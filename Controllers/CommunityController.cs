@@ -23,17 +23,17 @@ namespace FinalHPMS.Controllers
         // GET: Community
         public async Task<IActionResult> Index(string filtercommunity)
         {
-            var query = from community in _context.Community select community ;
-            if(!string.IsNullOrEmpty(filtercommunity))
-            {
-                query = query.Where(x => x.Name.Contains(filtercommunity) ||
-                             x.CityAndCountry.ToString().Contains(filtercommunity)
-                             ||x.Mail.ToString().Contains(filtercommunity));
-                
-            }
-            var products = query.Include(p=>p.Products).Select(p=>p.Products).ToList();
+            var query = from community in _context.Community select community;
             var model = new CommunityViewModel();
             model.Communities = await query.ToListAsync();
+
+            if(!string.IsNullOrEmpty(filtercommunity))
+            {
+                query = query.Where(x => x.Name.ToLower().Contains(filtercommunity) ||
+                             x.CityAndCountry.ToLower().ToString().Contains(filtercommunity)
+                             ||x.Mail.ToLower().ToString().Contains(filtercommunity));
+                
+            }
 
                 return _context.Community != null ? 
                 View(model) :
@@ -70,32 +70,28 @@ namespace FinalHPMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CommunityCreateViewModel community)
+        public async Task<IActionResult> Create(Community community, CommunityCreateViewModel communityViewModel)
         {
-
-            var model = new CommunityCreateViewModel() {
-                    Name = community.Name,
-                    CityAndCountry = community.CityAndCountry,
-                    Address = community.Address,
-                    Phone = community.Phone,
-                    Mail = community.Mail,
-                    CommunityType = community.CommunityType,
-                    Products = community.Products != null? community.Products : new List<SelectListItem>(),
-                    ProductsIds = new List<int>()
+            var model = new Community() {
+                    Name = communityViewModel.Name,
+                    CityAndCountry = communityViewModel.CityAndCountry,
+                    Address = communityViewModel.Address,
+                    Phone = communityViewModel.Phone,
+                    Mail = communityViewModel.Mail,
+                    CommunityType = communityViewModel.CommunityType,
                     };
 
-
-
+            ModelState.Remove("Tickets");
+            ModelState.Remove("Products");
+            ModelState.Remove("ProductId");
+            ModelState.Remove("TicketId");
             if (ModelState.IsValid)
             {
-                _context.Add(community);
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-
-            //ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductsIds);
-            
-            return View(community);
+            }            
+            return View(model);
         }
 
         // GET: Community/Edit/5
@@ -111,7 +107,7 @@ namespace FinalHPMS.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductId);
+            //ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductId);
             return View(community);
         }
 
@@ -147,7 +143,7 @@ namespace FinalHPMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductId);
+            //ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductId);
             return View(community);
         }
 

@@ -26,7 +26,7 @@ namespace FinalHPMS.Controllers
             var query = from product in _context.Product select product;
             if(!string.IsNullOrEmpty(filter))
             {
-                query = query.Where(x => x.Name.Contains(filter) ||
+                query = query.Where(x => x.Name.ToLower().Contains(filter) ||
                              x.Price.ToString().Contains(filter));
                 
             }
@@ -79,16 +79,51 @@ namespace FinalHPMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Product product)
-        {
+        public async Task<IActionResult> Create(Product product, ProductCreateViewModel productCreateViewModel)
+        { 
+            var CommunitiesList = _context.Community
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                }).ToListAsync();
+
+            var model = new Product() {
+                    Name = productCreateViewModel.Name,
+                    Price = productCreateViewModel.Price,
+                    Category = productCreateViewModel.Category,
+                    WeightKg = productCreateViewModel.WeightKg,
+                    ShippingAvailable = productCreateViewModel.ShippingAvailable,
+                    Dimension = productCreateViewModel.Dimension,
+                    Stock = productCreateViewModel.Stock,  
+                    };
+
+            // ModelState.Remove("CommunityId");
+            ModelState.Remove("Communities");
+
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(product);
+            }            
+            return View(model);
+
         }
+
+
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock, Communities, CommunityId")] Product product)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         _context.Add(product);
+        //         await _context.SaveChangesAsync();
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     return View(product);
+        // }
 
         // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -12,22 +12,22 @@ namespace FinalHPMS.ViewModels
         public string Name { get; set; }
     
         [Display(Name="Ciudad-País")]
-        public  string CityAndCountry { get; set; }
+        public string CityAndCountry { get; set; }
         
         [Display(Name="Dirección")]
-        public  string Address { get; set; }
+        public string Address { get; set; }
         
         [Display(Name="Teléfono")]
-        public  string Phone { get; set; }
+        public string Phone { get; set; }
 
         [Display(Name="Mail")]
-        public  string Mail { get; set; }
+        public string Mail { get; set; }
   
         [Display(Name="Tipo de Comunidad")]
         public CommunityType CommunityType { get; set; }
 
-        public virtual List<SelectListItem>? Products { get; set; }
-        public List<int> ProductsIds { get; set; }
+        // public virtual List<SelectListItem>? Products { get; set; }
+        // public List<int>? ProductsIds { get; set; }
         
     }
 }

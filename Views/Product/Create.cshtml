@@ -1,4 +1,5 @@
-@model FinalHPMS.Models.Product
+@using FinalHPMS.ViewModels;
+@model ProductCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -49,24 +50,19 @@
                 <input asp-for="Dimension" class="form-control" />
                 <span asp-validation-for="Dimension" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control"/>
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div> *@
-            <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-            </dt>
-            <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-            </dd>
-        
             <div class="form-group">
-                <label asp-for="CommunityId" class="control-label"></label>
-                <input asp-for="CommunityId" class="form-control" />
-                <span asp-validation-for="CommunityId" class="text-danger"></span>
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
-
+  
+             @* <div class="form-group">
+                <label asp-for="CommunityId" class="control-label"></label>
+                <select asp-for="CommunityId" asp-items="Model.Communities" class="form-control">
+                    <option value="">Seleccione una Comunidad</option>
+                </select>
+                <span asp-validation-for="CommunityId" class="text-danger"></span>
+            </div> *@
             <div class="form-group">
                 <input type="submit" value="Agregar" class="btn btn-primary" />
             </div>

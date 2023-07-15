@@ -46,3 +46,20 @@ button.accept-policy[b-ep2t9n9fwy] {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.green-bg[b-ep2t9n9fwy] {
+  background-color: #f0f8ea; /* Color verde claro */
+}
+.greendark-bg[b-ep2t9n9fwy] {
+  background-color: #11BB4F; /* Color verde oscuro */
+}
+
+
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('Fonts/Poppins-Regular.ttf') format('truetype');
+}
+h1[b-ep2t9n9fwy], p[b-ep2t9n9fwy] {
+  font-family: 'Poppins', sans-serif;
+}
