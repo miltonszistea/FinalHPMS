@@ -21,20 +21,19 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Community
-        public async Task<IActionResult> Index(string filtercommunity)
+        public async Task<IActionResult> Index(string Filter)
         {
-            var query = from community in _context.Community select community;
             var model = new CommunityViewModel();
-            model.Communities = await query.ToListAsync();
+            var query = from community in _context.Community select community;
 
-            if(!string.IsNullOrEmpty(filtercommunity))
+            if(!string.IsNullOrEmpty(Filter))
             {
-                query = query.Where(x => x.Name.ToLower().Contains(filtercommunity) ||
-                             x.CityAndCountry.ToLower().ToString().Contains(filtercommunity)
-                             ||x.Mail.ToLower().ToString().Contains(filtercommunity));
-                
+                query = query.Where(x => x.Name.ToLower().Contains(Filter.ToLower()) ||
+                             x.CityAndCountry.ToLower().Contains(Filter.ToLower())
+                             ||x.Mail.ToLower().Contains(Filter.ToLower()));     
             }
-
+            
+                model.Communities = await query.ToListAsync();
                 return _context.Community != null ? 
                 View(model) :
                 Problem("Entity set 'ProductContext.Product'  is null.");
