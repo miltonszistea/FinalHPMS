@@ -68,15 +68,26 @@ namespace FinalHPMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Apellido,Address,Phone,Mail,TicketId")] Client client)
+        public async Task<IActionResult> Create(ClientCreateViewModel clientViewModel)
         {
+
+            var model = new Client(){
+                    Name = clientViewModel.Name,
+                    Apellido = clientViewModel.Apellido,
+                    Address = clientViewModel.Address,
+                    Phone = clientViewModel.Phone,
+                    Mail = clientViewModel.Mail,
+                    };
+
+            ModelState.Remove("TicketId");
+            ModelState.Remove("Tickets");
             if (ModelState.IsValid)
             {
-                _context.Add(client);
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            return View(clientViewModel);
         }
 
         // GET: Client/Edit/5
