@@ -111,15 +111,17 @@ namespace FinalHPMS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Apellido,Address,Phone,Mail,TicketId")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Apellido,Address,Phone,Mail")] Client client)
         {
+
             if (id != client.Id)
             {
                 return NotFound();
             }
-
+            ModelState.Remove("Tickets");
             if (ModelState.IsValid)
             {
+                //var client = _context.Client.Find(id);
                 try
                 {
                     _context.Update(client);

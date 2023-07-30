@@ -18655,6 +18655,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Ticket\\Index.cshtml",
+      "TargetPath": "Views\\Ticket\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
@@ -18690,6 +18695,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Ticket\\Edit.cshtml",
+      "TargetPath": "Views\\Ticket\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Product\\Edit.cshtml",
       "TargetPath": "Views\\Product\\Edit.cshtml",
       "FileKind": "mvc"
@@ -18707,6 +18717,16 @@
     {
       "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Product\\Delete.cshtml",
       "TargetPath": "Views\\Product\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Ticket\\Create.cshtml",
+      "TargetPath": "Views\\Ticket\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Ticket\\Delete.cshtml",
+      "TargetPath": "Views\\Ticket\\Delete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -18742,6 +18762,11 @@
     {
       "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Shared\\_LoginPartial.cshtml",
       "TargetPath": "Views\\Shared\\_LoginPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerramientasProgramacion\\FinalHPMS\\Views\\Ticket\\Details.cshtml",
+      "TargetPath": "Views\\Ticket\\Details.cshtml",
       "FileKind": "mvc"
     },
     {

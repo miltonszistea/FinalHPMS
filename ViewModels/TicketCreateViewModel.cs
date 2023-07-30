@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using FinalHPMS.Models;
 
-namespace FinalHPMS.Models;
-
-public class Ticket{
+public class TicketCreateViewModel{
     
     [Required]
     public int Id { get; set; }
