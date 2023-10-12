@@ -8,25 +8,23 @@ public class TicketCreateViewModel{
     [Required]
     public int Id { get; set; }
 
-    [Display(Name="Fecha y hora")]
+    [Display(Name="Cliente")]
     [Required]
-    public required DateTime DateAndHour { get; set; }
-    
+    public List<Client> Clients{get;set;} = new List<Client>();
+
+
     [Display(Name="Total")]
     [Required]
     public int Total { get; set; }
     
-    [Display(Name="Cliente")]
+
+    [Display(Name="Fecha y hora")]
     [Required]
-    public Client Client { get; set; }
+    public required DateTime DateAndHour { get; set; }
 
     [Display(Name="Método de pago")]
     [Required]
     public PaymentMethod PaymentMethod { get; set; }
-
-    public int ProductId {get; set;}
-    public virtual List<Product> Products {get;set;}
-    public int ClientId {get; set;}
-    public int CommunityId{get; set;}
-    public List<Community> Communities{get; set;}
+    public required virtual List<Product>? Products {get;set;}
+    public required List<Community> Communities{get; set;}
 }

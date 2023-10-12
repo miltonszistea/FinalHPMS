@@ -16,6 +16,7 @@
     <form method="get" asp-action="Index" asp-controller="Product">
         <div class = "col-6 form-group">
         <input asp-for="Filter" class="form-control" type="search" placeholder="Busque por 2 campos: nombre o precio" aria-label="Search">
+                <br>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtre su producto</button>
         </div>
     </form>
@@ -25,7 +26,7 @@
     <p>
         <a asp-action="Create"
         class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
-            Agregue un producto al stock disponible</a>
+            Nuevo producto a stock</a>
     </p>
 <br>
 

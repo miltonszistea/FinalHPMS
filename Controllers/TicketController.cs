@@ -20,19 +20,20 @@ namespace FinalHPMS.Controllers
             _context = context;
         }
 
-        // GET: Product
+        // GET: Ticket
         public async Task<IActionResult> Index(string filter)
         {
-            var query = from ticket in _context.Product select ticket;
+            var query = from ticket in _context.Ticket select ticket;
             if(!string.IsNullOrEmpty(filter))
             {
-                query = query.Where(x => x.Name.ToLower().Contains(filter) ||
-                             x.Price.ToString().Contains(filter));
+                query = query.Where(x => x.ClientId.ToString().Contains(filter) 
+                            ||
+                             x.Products.ToString().Contains(filter));
                 
             }
 
-            var model = new ProductViewModel();
-            model.Products = await query.ToListAsync();
+            var model = new TicketViewModel();
+            model.Tickets = await query.ToListAsync();
 
               return _context.Product != null ? 
                           View(model) :
@@ -42,30 +43,29 @@ namespace FinalHPMS.Controllers
         // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Ticket == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.Include(x=>x.Communities)
+            var ticket = await _context.Ticket.Include(x=>x.Community)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (ticket == null)
             {
                 return NotFound();
             }
 
-            var viewModel = new ProductDetailViewModel();
-            viewModel.Name = product.Name;
-            viewModel.Dimension = product.Dimension;
-            viewModel.Category = product.Category;
-            viewModel.WeightKg = product.WeightKg;
-            viewModel.ShippingAvailable = product.ShippingAvailable;
-            viewModel.Stock = product.Stock;
-            viewModel.Price = product.Price;
-            viewModel.Communities = product.Communities;
+            var viewModel = new TicketDetailViewModel();
+            viewModel.Id = ticket.Id;
+            viewModel.DateAndHour = ticket.DateAndHour;
+            viewModel.Total = ticket.Total;
+            viewModel.Client = ticket.Client;
+            viewModel.PaymentMethod = ticket.PaymentMethod;
+            viewModel.Products = ticket.Products;
+            viewModel.Community = ticket.Community;
 
 
-            return View(product);
+            return View(ticket);
         }
 
         // GET: Product/Create

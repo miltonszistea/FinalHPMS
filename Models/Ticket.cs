@@ -27,5 +27,5 @@ public class Ticket{
     public virtual List<Product> Products {get;set;}
     public int ClientId {get; set;}
     public int CommunityId{get; set;}
-    public List<Community> Communities{get; set;}
+    public Community Community{get; set;}
 }

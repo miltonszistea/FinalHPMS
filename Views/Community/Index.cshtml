@@ -4,16 +4,19 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Comunidades vigentes:</h1>
+<body class="green-bg">
+<h2>Comunidades vigentes:</h2>
+    <br>
 <div class="row">
     <form method="get" asp-action="Index" asp-controller="Community">
         <div class = "col-6 form-group">
         <input asp-for="Filter" class="form-control" type="search" placeholder="Busque por 3 campos: nombre, ciudad/país o mail" aria-label="Search">
+                <br>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtre su comunidad</button>
         </div>
     </form>
 </div>
+    <br>
     <p>
         <a asp-action="Create"
         class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
@@ -74,3 +77,4 @@
 }
     </tbody>
 </table>
+</body>

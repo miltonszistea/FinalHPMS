@@ -1,69 +1,73 @@
 @using FinalHPMS.ViewModels;
-@model ClientViewModel
+@model TicketViewModel;
 
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Base de Clientes</h1>
+<body class="green-bg">
+<h1>Historial de Tickets</h1>
+    <br>
+    <p>
+        <a asp-action="Create"
+           class="btn btn-warning" role="button" aria-pressed="true">
+            Nueva Venta
+        </a>
+    </p>
+  
 <div class="row">
-    <form method="get" asp-action="Index" asp-controller="Client">
+    <form method="get" asp-action="Index" asp-controller="Ticket">
         <div class = "col-6 form-group">
-        <input asp-for="Filter" class="form-control" type="search" placeholder="Busque por 3 campos: nombre, apellido o mail" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtre su cliente</button>
+        <input asp-for="Filter" class="form-control" type="search" placeholder="Busque por 2 campos: nombre o producto" aria-label="Search">
+                
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtre su ticket</button>
         </div>
     </form>
 </div>
-<p>
-    <a asp-action="Create">Crear nuevo cliente</a>
-</p>
+    <br>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Clients[0].Name)
+                @Html.DisplayNameFor(model => model.Tickets[0].ClientId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Clients[0].Apellido)
+                @Html.DisplayNameFor(model => model.Tickets[0].DateAndHour)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Clients[0].Address)
+                @Html.DisplayNameFor(model => model.Tickets[0].Community)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Clients[0].Phone)
+                @Html.DisplayNameFor(model => model.Tickets[0].Products)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Clients[0].Mail)
+                @Html.DisplayNameFor(model => model.Tickets[0].Total)
             </th>
-            @* <th>
-                @Html.DisplayNameFor(model => model.Clients[0].TicketId)
-            </th> *@
             <th>
-                @Html.DisplayNameFor(model => model.Clients[0].Tickets)
+                @Html.DisplayNameFor(model => model.Tickets[0].PaymentMethod)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Clients) {
+@foreach (var item in Model.Tickets) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
+                @Html.DisplayFor(modelItem => item.DateAndHour)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.Community)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone)
+                @Html.DisplayFor(modelItem => item.Products)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Mail)
+                @Html.DisplayFor(modelItem => item.Total)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tickets)
+                @Html.DisplayFor(modelItem => item.PaymentMethod)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
@@ -74,3 +78,4 @@
 }
     </tbody>
 </table>
+</body>>

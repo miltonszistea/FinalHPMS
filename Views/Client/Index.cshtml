@@ -4,19 +4,25 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Base de Clientes</h1>
+<body class="green-bg">
+<h2>Base de Clientes</h2>
+    <br>
 <div class="row">
     <form method="get" asp-action="Index" asp-controller="Client">
         <div class = "col-6 form-group">
         <input asp-for="Filter" class="form-control" type="search" placeholder="Busque por 3 campos: nombre, apellido o mail" aria-label="Search">
+                <br>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtre su cliente</button>
         </div>
     </form>
 </div>
-<p>
-    <a asp-action="Create">Crear nuevo cliente</a>
-</p>
+    <br>
+    <p>
+        <a asp-action="Create"
+           class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
+            Nuevo cliente
+        </a>
+    </p>
 <table class="table">
     <thead>
         <tr>
@@ -74,3 +80,4 @@
 }
     </tbody>
 </table>
+</body>

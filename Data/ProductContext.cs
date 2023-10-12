@@ -17,6 +17,7 @@ namespace FinalHPMS.Data
         public DbSet<FinalHPMS.Models.Product> Product { get; set; } = default!;
         public DbSet<FinalHPMS.Models.Community> Community {get;set;} =default!;
         public DbSet<FinalHPMS.Models.Client> Client {get;set;} =default!;
+        public DbSet<FinalHPMS.Models.Ticket> Ticket {get;set;} =default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
