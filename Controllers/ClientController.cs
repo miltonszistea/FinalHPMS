@@ -21,22 +21,23 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Client
-        public async Task<IActionResult> Index(string filterclient)
+        public async Task<IActionResult> Index(string Filter)
         {
              var query = from client in _context.Client select client ;
-            if(!string.IsNullOrEmpty(filterclient))
+            if (!string.IsNullOrEmpty(Filter))
             {
-                query = query.Where(x => x.Name.Contains(filterclient) ||
-                             x.Apellido.ToString().Contains(filterclient)
-                             ||x.Mail.ToString().Contains(filterclient));
-                
+                Filter = Filter.ToLower();
+                query = query.Where(x => x.Name.ToLower().Contains(Filter) ||
+                                        x.Apellido.ToLower().Contains(Filter) ||
+                                        x.Mail.ToLower().Contains(Filter));
             }
+
             var model = new ClientViewModel();
             model.Clients = await query.ToListAsync();
 
-                return _context.Community != null ? 
+                return _context.Client != null ? 
                 View(model) :
-                Problem("Entity set 'ProductContext.Product'  is null.");
+                Problem("Entity set 'ClientContext.Client'  is null.");
         }
 
         // GET: Client/Details/5

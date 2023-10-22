@@ -25,6 +25,7 @@ public class Client{
     public required string Phone { get; set; }
 
     [Display(Name="Mail")]
+    //[EmailAddress]
     [Required]
     public required string Mail { get; set; }
 

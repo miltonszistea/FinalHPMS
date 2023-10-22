@@ -68,13 +68,13 @@ namespace FinalHPMS.Controllers
             return View(ticket);
         }
 
-        // GET: Product/Create
+        // GET: Ticket/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Product/Create
+        // POST: Ticket/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

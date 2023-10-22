@@ -106,13 +106,12 @@ namespace FinalHPMS.Controllers
             {
                 return NotFound();
             }
-            //ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductId);
+            //ViewData["CommunityType"] = new SelectList(_context.Community, community.CommunityType);
             return View(community);
         }
 
         // POST: Community/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CityAndCountry,Address,Phone,Mail,CommunityType,ProductId")] Community community)
@@ -142,7 +141,6 @@ namespace FinalHPMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["ProductId"] = new SelectList(_context.Product, "Id", "Dimension", community.ProductId);
             return View(community);
         }
 
