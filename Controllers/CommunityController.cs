@@ -36,7 +36,7 @@ namespace FinalHPMS.Controllers
                 model.Communities = await query.ToListAsync();
                 return _context.Community != null ? 
                 View(model) :
-                Problem("Entity set 'ProductContext.Product'  is null.");
+                Problem("Entity set 'CommunityContext.Context'  is null.");
         }
 
         // GET: Community/Details/5

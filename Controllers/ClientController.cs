@@ -23,7 +23,10 @@ namespace FinalHPMS.Controllers
         // GET: Client
         public async Task<IActionResult> Index(string Filter)
         {
-             var query = from client in _context.Client select client ;
+            var query = from client in _context.Client select client ;
+            
+            var tickets = query.Include(x=>x.Tickets);
+
             if (!string.IsNullOrEmpty(Filter))
             {
                 Filter = Filter.ToLower();
@@ -35,9 +38,9 @@ namespace FinalHPMS.Controllers
             var model = new ClientViewModel();
             model.Clients = await query.ToListAsync();
 
-                return _context.Client != null ? 
-                View(model) :
-                Problem("Entity set 'ClientContext.Client'  is null.");
+            return _context.Client != null ? 
+            View(model) :
+            Problem("Entity set 'ClientContext.Client'  is null.");
         }
 
         // GET: Client/Details/5

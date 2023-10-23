@@ -24,6 +24,9 @@ namespace FinalHPMS.Controllers
         public async Task<IActionResult> Index(string filter)
         {
             var query = from product in _context.Product select product;
+
+            var communities = query.Include(x=>x.Communities);
+
             if(!string.IsNullOrEmpty(filter))
             {
                 query = query.Where(x => x.Name.ToLower().Contains(filter) ||

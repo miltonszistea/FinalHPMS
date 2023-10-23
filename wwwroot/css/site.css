@@ -22,10 +22,13 @@ body {
 }
 
 .green-bg {
-  background-color: #f0f8ea; /* Color verde claro */
+  background-color: #B4FF9F; /* Color verde claro */
 }
-.greendark-bg {
-  background-color: #11BB4F; /* Color verde oscuro */
+.pinkdark-bg {
+  background-color: #FFA1A1; /* Color rosa oscuro */
+}
+.yellow-bg {
+  background-color: #FFCD3C; /* Color amarillo navbar*/
 }
 
 
