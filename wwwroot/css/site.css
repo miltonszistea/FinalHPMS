@@ -22,13 +22,18 @@ body {
 }
 
 .green-bg {
-  background-color: #B4FF9F; /* Color verde claro */
+  background-color: #b8efb9; /* Color verde claro */
 }
 .pinkdark-bg {
   background-color: #FFA1A1; /* Color rosa oscuro */
 }
 .yellow-bg {
-  background-color: #FFCD3C; /* Color amarillo navbar*/
+  background-color: #d1ffd1; /* Color NavBar*/
+  font-family: 'Poppins', sans-serif;
+}
+.footer-bg {
+  background-color: #9fdea1; /* Color footer*/
+  font-family: 'Poppins', sans-serif;
 }
 
 
@@ -39,4 +44,12 @@ body {
 }
 h1, p {
   font-family: 'Poppins', sans-serif;
+}
+
+.pie_pagina
+{
+   background-image: url("../images/hierbapng.png");
+   background-position: center bottom;
+   background-size: auto 100px;
+   background-repeat: repeat-x; 
 }
