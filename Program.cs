@@ -22,6 +22,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICommunityService, CommunityService>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 
 var app = builder.Build();
