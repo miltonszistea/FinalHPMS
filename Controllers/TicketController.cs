@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using FinalHPMS.Data;
 using FinalHPMS.Models;
 using FinalHPMS.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalHPMS.Controllers
 {
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly ProductContext _context;

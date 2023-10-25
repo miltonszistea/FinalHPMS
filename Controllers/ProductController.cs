@@ -9,9 +9,11 @@ using FinalHPMS.Data;
 using FinalHPMS.Models;
 using FinalHPMS.ViewModels;
 using FinalHPMS.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalHPMS.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private IProductService _productService;
