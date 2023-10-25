@@ -43,6 +43,14 @@ public class TicketService : ITicketService
         return ticket;
     }
 
+public TicketViewModel GetAll()
+{
+    var query = from ticket in _context.Ticket select ticket;
+    var clients = query.Include(x=>x.Client);
+    var model = new TicketViewModel();
+    model.Tickets = query.ToList();
+    return model;
+}
     public TicketViewModel GetAll(string filter)
     {
         var query = from ticket in _context.Ticket select ticket;

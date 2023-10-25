@@ -6,6 +6,7 @@ namespace FinalHPMS.Services;
 public interface ITicketService
 {
     void Create(Ticket obj);
+    TicketViewModel GetAll();
     TicketViewModel GetAll(string filter);
     void Update(Ticket obj, int id);
     void Delete(Ticket obj);

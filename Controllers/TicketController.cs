@@ -9,161 +9,94 @@ using FinalHPMS.Data;
 using FinalHPMS.Models;
 using FinalHPMS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using FinalHPMS.Services;
 
 namespace FinalHPMS.Controllers
 {
     //[Authorize(Roles = "Administrator,Employee,Supervisor")]
     public class TicketController : Controller
     {
-        private readonly ProductContext _context;
-
-        public TicketController(ProductContext context)
+        private ITicketService _ticketService;
+        private IClientService _clientService;
+        public TicketController(ITicketService ticketService, IClientService clientService)
         {
-            _context = context;
+            _ticketService = ticketService;
+            _clientService = clientService;
+
         }
 
         // GET: Ticket
-        public async Task<IActionResult> Index(string filter)
+        public IActionResult Index(string filter)
         {
-            var query = from ticket in _context.Ticket select ticket;
-            if(!string.IsNullOrEmpty(filter))
-            {
-                query = query.Where(x => x.ClientId.ToString().Contains(filter) 
-                            ||
-                             x.Products.ToString().Contains(filter));
-                
-            }
-
-            var model = new TicketViewModel();
-            model.Tickets = await query.ToListAsync();
-
-              return _context.Product != null ? 
-                          View(model) :
-                          Problem("Entity set 'ProductContext.Product'  is null.");
+            var ticketContext = _ticketService.GetAll(filter);
+            return View(ticketContext);
         }
 
-        // GET: Product/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Ticket/Details/5
+        public IActionResult Details(int? id)
         {
-            if (id == null || _context.Ticket == null)
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var ticketDetailViewModel = _ticketService.GetDetails(id.Value);
+
+            if (ticketDetailViewModel == null)
             {
                 return NotFound();
             }
 
-            var ticket = await _context.Ticket.Include(x=>x.Community)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ticket == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new TicketDetailViewModel();
-            viewModel.Id = ticket.Id;
-            viewModel.DateAndHour = ticket.DateAndHour;
-            viewModel.Total = ticket.Total;
-            viewModel.Client = ticket.Client;
-            viewModel.PaymentMethod = ticket.PaymentMethod;
-            viewModel.Products = ticket.Products;
-            viewModel.Community = ticket.Community;
-
-
-            return View(ticket);
+            return View(ticketDetailViewModel);
         }
 
         // GET: Ticket/Create
         public IActionResult Create()
         {
-
-            var model = new TicketCreateViewModel
-            {
-                Products = new List<Product>(),
-                Communities = new List<Community>(),
-                DateAndHour = DateTime.Now 
-            };
-
-
-            ViewData["Clients"] = new SelectList(_context.Client.ToList(), "Id", "Name", "Apellido");
-
-            ViewData["Communities"] = new SelectList(_context.Community.ToList()
+            var clientList = _ticketService.GetAll();
+            ViewData["Client"] = new SelectList(clientList.Tickets.ToList()
             .Select(c => new SelectListItem
             {
-                Text = c.Name,
+                Text = c.Client.Name,
                 Value = c.Id.ToString()
             }), "Value", "Text");
-
-            
-            var paymentMethods = Enum.GetValues(typeof(PaymentMethod))
-                .Cast<PaymentMethod>()
-                .Select(p => new SelectListItem
-                {
-                    Text = p.ToString(),
-                    Value = ((int)p).ToString()
-                })
-                .ToList();
-            ViewData["PaymentMethods"] = new SelectList(paymentMethods, "Value", "Text");
-
             return View();
         }
 
         // POST: Ticket/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product, ProductCreateViewModel productCreateViewModel)
+        public async Task<IActionResult> Create(Ticket ticket, TicketCreateViewModel ticketCreateViewModel)
         { 
-            var CommunitiesList = _context.Community
-                .Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Name
-                }).ToListAsync();
-
-            var model = new Product() {
-                    Name = productCreateViewModel.Name,
-                    Price = productCreateViewModel.Price,
-                    Category = productCreateViewModel.Category,
-                    WeightKg = productCreateViewModel.WeightKg,
-                    ShippingAvailable = productCreateViewModel.ShippingAvailable,
-                    Dimension = productCreateViewModel.Dimension,
-                    Stock = productCreateViewModel.Stock,  
-                    };
-
-            ModelState.Remove("Communities");
-
+            //ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
-                _context.Add(model);
-                await _context.SaveChangesAsync();
+                var model = new Ticket()
+                {
+                    Id = ticketCreateViewModel.Id,
+                    //Client = ticketCreateViewModel.Clients,
+                    PaymentMethod = ticketCreateViewModel.PaymentMethod,
+                    DateAndHour = ticketCreateViewModel.DateAndHour,
+                    Total = ticketCreateViewModel.Total,
+                    Products = ticketCreateViewModel.Products,
+                    //Communities = ticketCreateViewModel.Communities,
+                };
+                _ticketService.Create(model);
                 return RedirectToAction(nameof(Index));
             }            
-            return View(model);
+            return View(ticketCreateViewModel);
 
         }
 
 
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock, Communities, CommunityId")] Product product)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         _context.Add(product);
-        //         await _context.SaveChangesAsync();
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     return View(product);
-        // }
-
-        // GET: Product/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Ticket/Edit/5
+        public IActionResult Edit(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
+            var product = _ticketService.GetDetails(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -171,51 +104,33 @@ namespace FinalHPMS.Controllers
             return View(product);
         }
 
-        // POST: Product/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Ticket/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Product product)
+        public IActionResult Edit(int id, [Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Ticket ticket)
         {
-            if (id != product.Id)
+            if (id != ticket.Id)
             {
                 return NotFound();
             }
-
+            ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _ticketService.Update(ticket, id);
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(ticket);
         }
 
-        // GET: Product/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Ticket/Delete/5
+        public IActionResult Delete(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = _ticketService.GetDetails(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -229,23 +144,18 @@ namespace FinalHPMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Product == null)
+           var ticket = _ticketService.GetTicket(id);
+            if (ticket != null)
             {
-                return Problem("Entity set 'ProductContext.Product'  is null.");
+                _ticketService.Delete(ticket);
             }
-            var product = await _context.Product.FindAsync(id);
-            if (product != null)
-            {
-                _context.Product.Remove(product);
-            }
-            
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
-        {
-          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+
+        // private bool TickettExists(int id)
+        // {
+        //   return _ticketService.GetTicket(id) != null;
+        // }
     }
 }

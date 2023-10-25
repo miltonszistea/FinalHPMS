@@ -66,7 +66,6 @@ namespace FinalHPMS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Product product, ProductCreateViewModel productCreateViewModel)
         {
-            // ModelState.Remove("CommunityId");
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
