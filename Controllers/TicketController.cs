@@ -71,6 +71,35 @@ namespace FinalHPMS.Controllers
         // GET: Ticket/Create
         public IActionResult Create()
         {
+
+            var model = new TicketCreateViewModel
+            {
+                Products = new List<Product>(),
+                Communities = new List<Community>(),
+                DateAndHour = DateTime.Now 
+            };
+
+
+            ViewData["Clients"] = new SelectList(_context.Client.ToList(), "Id", "Name", "Apellido");
+
+            ViewData["Communities"] = new SelectList(_context.Community.ToList()
+            .Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }), "Value", "Text");
+
+            
+            var paymentMethods = Enum.GetValues(typeof(PaymentMethod))
+                .Cast<PaymentMethod>()
+                .Select(p => new SelectListItem
+                {
+                    Text = p.ToString(),
+                    Value = ((int)p).ToString()
+                })
+                .ToList();
+            ViewData["PaymentMethods"] = new SelectList(paymentMethods, "Value", "Text");
+
             return View();
         }
 

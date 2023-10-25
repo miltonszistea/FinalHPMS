@@ -11,7 +11,7 @@ public class Ticket{
     [Required]
     public required DateTime DateAndHour { get; set; }
     
-    [Display(Name="Total")]
+    [Display(Name="Total")] 
     [Required]
     public int Total { get; set; }
     
@@ -22,7 +22,6 @@ public class Ticket{
     [Display(Name="Método de pago")]
     [Required]
     public PaymentMethod PaymentMethod { get; set; }
-
     public int ProductId {get; set;}
     public virtual List<Product> Products {get;set;}
     public int ClientId {get; set;}

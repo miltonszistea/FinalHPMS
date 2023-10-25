@@ -22,10 +22,14 @@ namespace FinalHPMS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            //  modelBuilder.Entity<Community>()
+            // .HasMany(community => community.Products) // Una comunidad tiene muchos productos
+            // .WithOne(product => product.Community)    // Un producto pertenece a una comunidad
+            // .HasForeignKey(product => product.CommunityId);
+
             modelBuilder.Entity<Product>()
-            .HasMany(c=>c.Communities)
-            .WithMany(p=>p.Products)
+            .HasMany(product => product.Communities)
+            .WithMany(community => community.Products)
             .UsingEntity("ProductCommunity");
         
             modelBuilder.Entity<Client>()

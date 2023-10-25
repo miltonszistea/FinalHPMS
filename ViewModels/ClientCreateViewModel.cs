@@ -28,4 +28,7 @@ public class ClientCreateViewModel{
     [Required]
     public required string Mail { get; set; }
 
+    [Display(Name="Fecha y Hora")]
+    [Required]
+    public required string DateAndHour { get; set; }
 }

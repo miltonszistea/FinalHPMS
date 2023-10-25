@@ -3,6 +3,9 @@
 
 @{
     ViewData["Title"] = "Create";
+    var Clients = ViewData["Clients"];
+    var Communities = ViewData["Communities"];
+    var PaymentMethod = ViewData["Communities"];
 }
 
 <h1>Generar nueva venta</h1>
@@ -13,27 +16,40 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Clients" class="control-label"></label>
-                <input asp-for="Clients" class="form-control" />
-                <span asp-validation-for="Clients" class="text-danger"></span>
-            </div>
+            
 
-            <div class="form-group">
-                <label asp-for="DateAndHour" class="control-label"></label>
-                <input asp-for="DateAndHour" class="form-control" />
-                <span asp-validation-for="DateAndHour" class="text-danger"></span>
-            </div>
+                <label asp-for="Clients" class="control-label"></label>
+                <select class="form-control" asp-for="Clients" asp-items="ViewBag.Clients">
+                </select>
+
+
+                <label asp-for="Communities" class="control-label"></label>
+                <select class="form-control" asp-for="Communities" asp-items="ViewBag.Communities">
+                </select>
+
+                <div class="form-group">
+                    <label asp-for="DateAndHour" class="control-label">Fecha y hora</label>
+                    <input asp-for="DateAndHour" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="DateAndHour" class="text-danger"></span>
+                </div>
+
+
+            <label asp-for="PaymentMethod" class="control-label"></label>
+            <select asp-for="PaymentMethod" asp-items="ViewBag.PaymentMethods" class="form-control">
+            </select>
+
+            @*
             <div class="form-group">
                 <label asp-for="PaymentMethod" class="control-label"></label>
                 <input asp-for="PaymentMethod" class="form-control" />
                 <span asp-validation-for="PaymentMethod" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            </div>^
+            
+             <div class="form-group">
                 <label asp-for="Communities" class="control-label"></label>
                 <input asp-for="Communities" class="form-control" />
                 <span asp-validation-for="Communities" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="Products" class="control-label"></label>
                 <input asp-for="Products" class="form-control" />
@@ -47,7 +63,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-warning" />
+                <input type="submit" value="Generar ticket" class="btn btn-warning" />
             </div>
         </form>
     </div>
