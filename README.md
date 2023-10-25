@@ -17,9 +17,9 @@
 
 ## Aplicación de Venta de Máquinas :computer: - CRUD:
 
-Esta es una aplicación web cuyo objetivo es lograr la gestión integral de una comunidad que fomenta el negocio de venta de máquinas orientadas al reciclaje de plástico, extendiendo el proyecto "Precious Plastic", cuya licencia es Creative Commons Attribution, que a su vez es un proyecto basado en One Army.
-La presente aplicación fue desarrollada en C# y el framework ASP.NET con arquitectura MVC. 
-Permite realizar operaciones básicas de Crear, Leer, Actualizar y Eliminar (CRUD) registros de estas máquinas en una base de datos SQLite que es utilizada por la comunidad para gestionar su Bazar, donde diferentes vendedores colocan su producto en oferta (que puede ser del tipo máquina, molde, material -materia prima- u objeto final).
+Esta es una aplicación web en honor al proyecto "Precious Plastic", cuyo objetivo es lograr la gestión integral de una comunidad que fomenta el negocio de venta de máquinas orientadas al reciclaje de plástico. La idea original es profundizar el "Bazar" ecológico de esta empresa, cuya licencia es Creative Commons Attribution, y a su vez aportar a dicho proyecto que está en la fundación One Army.
+La presente aplicación fue desarrollada en C# y el framework ASP.NET con arquitectura MVC. Para ella se utilizó Entity Framework para la gestión de Base de Datos y el paquete Identity para la gestión de autorización, autenticación y roles.
+Permite realizar operaciones básicas de Crear, Leer, Actualizar y Eliminar (CRUD) registros de estas máquinas en una base de datos SQLite que es utilizada por la comunidad para gestionar su Bazar, donde diferentes vendedores colocan su producto en oferta (que puede ser del tipo máquina, molde, material -materia prima- u objeto final). Además, como funcionalidad de negocio, permite no sólo ubicar en qué sucursal geográfica está ubicada cada producto y así poder medir con estadísticas la correcta logística de nuestro emprendimiento, sino además la gestión de ventas, generando Tickets a nombre de nuestros Clientes que permitan automáticamente calcular el total del monto a pagar, y disminuir el stock en la cantidad entregada al cliente.
 
 ## Características principales de la aplicación web :factory::
 
