@@ -21,15 +21,14 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Product
-        public async Task<IActionResult> Index(string filter)
+        public IActionResult Index(string filter)
         {
             var productContext = _productService.GetAll(filter);
-
             return View(productContext);
         }
 
         // GET: Product/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -54,24 +53,25 @@ namespace FinalHPMS.Controllers
         // POST: Product/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product, ProductCreateViewModel productCreateViewModel)
-        { 
+        public IActionResult Create(Product product, ProductCreateViewModel productCreateViewModel)
+        {
             // ModelState.Remove("CommunityId");
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
-                    var model = new Product() {
+                var model = new Product()
+                {
                     Name = productCreateViewModel.Name,
                     Price = productCreateViewModel.Price,
                     Category = productCreateViewModel.Category,
                     WeightKg = productCreateViewModel.WeightKg,
                     ShippingAvailable = productCreateViewModel.ShippingAvailable,
                     Dimension = productCreateViewModel.Dimension,
-                    Stock = productCreateViewModel.Stock,  
-                    };
+                    Stock = productCreateViewModel.Stock,
+                };
                 _productService.Create(model);
                 return RedirectToAction(nameof(Index));
-            }            
+            }
             return View(productCreateViewModel);
         }
 
