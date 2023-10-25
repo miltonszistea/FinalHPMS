@@ -67,7 +67,9 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Borrar definitivamente" class="btn btn-danger" /> |
-        <a asp-action="Index">Volver a Comunidades</a>
+        <a asp-action="Index"
+        class="btn btn-outline-info" role="button" aria-pressed="true">
+        Volver a Comunidades</a>
     </form>
 </div>
 </body>

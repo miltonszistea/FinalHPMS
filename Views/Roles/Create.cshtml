@@ -1,0 +1,36 @@
+@using Microsoft.AspNetCore.Identity;
+@using FinalHPMS.Views.Roles.ViewModels;
+@model RoleCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<head>
+    <link rel="stylesheet" href="wwwroot\css\site.css">
+</head>
+<body class="green-bg">
+<h1>Crear un rol</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Agregar" class="btn btn-outline-dark" />
+                        <a asp-action="Index"
+                        class="btn btn-outline-info" role="button" aria-pressed="true">
+                        Volver al Menú de Roles</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

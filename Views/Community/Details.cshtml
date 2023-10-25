@@ -67,7 +67,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
-    <a asp-action="Index">Volver a Comunidades</a>
+    <a asp-action="Edit" class="btn btn-outline-secondary" role="button" aria-pressed="true" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-action="Index"
+    class="btn btn-outline-info" role="button" aria-pressed="true">
+    Volver a Comunidades</a>
 </div>
 </body>

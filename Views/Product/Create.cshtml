@@ -61,23 +61,14 @@
                 <input asp-for="Stock" class="form-control" />
                 <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
-  
-             @* <div class="form-group">
-                <label asp-for="CommunityId" class="control-label"></label>
-                <select asp-for="CommunityId" asp-items="Model.Communities" class="form-control">
-                    <option value="">Seleccione una Comunidad</option>
-                </select>
-                <span asp-validation-for="CommunityId" class="text-danger"></span>
-            </div> *@
             <div class="form-group">
                 <input type="submit" value="Agregar" class="btn btn-primary" />
+                <a asp-action="Index"
+                class="btn btn-outline-info" role="button" aria-pressed="true">
+                Volver al Menú de Productos</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Volver al listado</a>
 </div>
 </body>
 @section Scripts {

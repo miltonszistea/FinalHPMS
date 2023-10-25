@@ -61,7 +61,9 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index">Volver al listado</a>
+        <a asp-action="Index"
+        class="btn btn-outline-info" role="button" aria-pressed="true">
+        Volver al Menú de Productos</a>
     </form>
 </div>
 </body>
