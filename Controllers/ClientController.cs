@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FinalHPMS.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator,Employee,Supervisor")]
     public class ClientController : Controller
     {
         private IClientService _clientService;

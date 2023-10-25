@@ -5,9 +5,11 @@ using FinalHPMS.Services;
 using Microsoft.AspNetCore.Identity;
 using FinalHPMS.Views.Users.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalHPMS.Controllers;
 
+//[Authorize(Roles = "Administrator")]
 public class UsersController : Controller
 {
     private readonly UserManager<IdentityUser> _userManager;
@@ -27,11 +29,13 @@ public class UsersController : Controller
     //GET Edit
     public async Task<IActionResult> Edit(string userId)
     {
-        var user = await _userManager.FindByIdAsync(userId); 
-        var userEditViewModel = new UserEditViewModel();
-        userEditViewModel.UserName = user.UserName;
-        userEditViewModel.Email = user.Email;
-        userEditViewModel.Roles = new SelectList(_rolesManager.Roles.ToList());
+        var user = await _userManager.FindByIdAsync(userId);
+        var userEditViewModel = new UserEditViewModel
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Roles = new SelectList(_rolesManager.Roles.ToList())
+        };
         return View(userEditViewModel);
     }
 

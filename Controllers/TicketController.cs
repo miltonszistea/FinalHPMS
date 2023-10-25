@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FinalHPMS.Controllers
 {
-    [Authorize]
+    //[Authorize(Roles = "Administrator,Employee,Supervisor")]
     public class TicketController : Controller
     {
         private readonly ProductContext _context;

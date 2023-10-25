@@ -4,9 +4,11 @@ using FinalHPMS.Models;
 using FinalHPMS.Services;
 using Microsoft.AspNetCore.Identity;
 using FinalHPMS.Views.Roles.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalHPMS.Controllers;
 
+//[Authorize(Roles = "Administrator")]
 public class RolesController : Controller
 {
     private readonly RoleManager<IdentityRole> _rolesManager;
