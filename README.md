@@ -1,3 +1,5 @@
+<img width="222" alt="PlastiCoolLogo" src="https://github.com/miltonszistea/FinalHPMS/assets/132294732/6392ce7a-b9f3-4649-8aca-c29ac79dff1b">
+
 [![License](https://badgen.net/badge/license/CreativeCommons/blue)](https://badgen.net)
 [![Last Commit](https://img.shields.io/github/last-commit/miltonszistea/FinalHP?label=Last%20Commit&style=flat-square)](https://github.com/miltonszistea/FinalHP/commits)
 
