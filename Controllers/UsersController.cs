@@ -35,6 +35,17 @@ public class UsersController : Controller
         return View(userEditViewModel);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Edit(UserEditViewModel model)
+    {
+        var user = await _userManager.FindByNameAsync(model.UserName);
+        if (user != null)
+        {
+            RedirectToAction("Index");
+            await _userManager.AddToRoleAsync(user, model.Role);
+        }
+        return RedirectToAction("Index");
+    }
     //update
     //delete
 
