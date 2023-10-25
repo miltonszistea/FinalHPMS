@@ -1,4 +1,7 @@
-<img width="222" alt="PlastiCoolLogo" src="https://github.com/miltonszistea/FinalHPMS/assets/132294732/6392ce7a-b9f3-4649-8aca-c29ac79dff1b">
+<div align="center">
+  <img width="300" alt="PlastiCoolLogo" src="https://github.com/miltonszistea/FinalHPMS/assets/132294732/6392ce7a-b9f3-4649-8aca-c29ac79dff1b">
+</div>
+
 
 [![License](https://badgen.net/badge/license/CreativeCommons/blue)](https://badgen.net)
 [![Last Commit](https://img.shields.io/github/last-commit/miltonszistea/FinalHP?label=Last%20Commit&style=flat-square)](https://github.com/miltonszistea/FinalHP/commits)
@@ -46,6 +49,19 @@ Esperar la revisión.
 Notas
 Esta aplicación de ejemplo fue desarrollada con fines educativos y puede ser modificada y adaptada según las necesidades específicas de tu negocio de venta de máquinas. Sólo tenes que ajustar el código según tus requisitos.
 
+## FAQ :question::
+¿Qué características principales ofrece esta aplicación?
+
+Respuesta: Nuestra aplicación ASP.NET MVC proporciona funcionalidades para registrar y gestionar productos, clientes, pedidos y ventas. Puedes agregar, editar, eliminar y consultar información de manera eficiente.
+¿Qué tecnologías subyacen a esta aplicación?
+
+Respuesta: Esta aplicación se basa en el framework ASP.NET MVC, utiliza lenguaje de programación C# y una base de datos para almacenar y recuperar datos. También puede emplear tecnologías front-end como HTML, CSS y JavaScript.
+¿Es necesario conocimiento técnico para utilizar esta aplicación?
+
+Respuesta: No se requiere un conocimiento técnico avanzado. La aplicación está diseñada para ser intuitiva y fácil de usar. Sin embargo, un conocimiento básico de la gestión de datos y ventas puede ser beneficioso.
+¿La aplicación es personalizable o extensible?
+
+Respuesta: Sí, nuestra aplicación ASP.NET MVC es altamente personalizable y extensible. Puedes adaptarla a tus necesidades específicas, agregar nuevas características y modificar la interfaz de usuario según tus preferencias.
 
 ## Licencia :black_nib::
 Esta aplicación está bajo la Licencia Creative Commons Attribution. 
