@@ -75,20 +75,6 @@ namespace FinalHPMS.Controllers
             return View(productCreateViewModel);
         }
 
-
-        // // [HttpPost]
-        // // [ValidateAntiForgeryToken]
-        // // public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock, Communities, CommunityId")] Product product)
-        // // {
-        // //     if (ModelState.IsValid)
-        // //     {
-        // //         _context.Add(product);
-        // //         await _context.SaveChangesAsync();
-        // //         return RedirectToAction(nameof(Index));
-        // //     }
-        // //     return View(product);
-        // // }
-
         // GET: Product/Edit/5
         public IActionResult Edit(int? id)
         {
@@ -124,7 +110,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Product/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -143,9 +129,8 @@ namespace FinalHPMS.Controllers
         // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-
             var product = _productService.GetProduct(id);
             if (product != null)
             {
