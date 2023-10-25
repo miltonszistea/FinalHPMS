@@ -1,39 +1,124 @@
+using FinalHPMS.Data;
 using FinalHPMS.Models;
+using FinalHPMS.ViewModels;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalHPMS.Services;
 
-public static class ProductService{
-    static List<Product> Products { get; set;}
-
-    static ProductService(){
-        Products = new List<Product>
+public class ProductService : IProductService
+{
+    private readonly ProductContext _context;
+    public ProductService(ProductContext context)
+    {
+        _context = context;
+    }
+    public void Create(Product productCreate)
+    {
+      var CommunitiesList = _context.Community
+        .Select(c => new SelectListItem
         {
-            new Product { Name = "Shredder Pro", 
-            Id=1, 
-            Category=ProductCategory.Machine, 
-            Price=3000,
-            WeightKg = 900,
-            ShippingAvailable = true,
-            Dimension="70x30x40"},
-        };
+         Value = c.Id.ToString(),
+         Text = c.Name
+        }).ToListAsync();
+
+        _context.Add(productCreate);
+        _context.SaveChanges();
     }
 
-    public static List<Product> GetAll() => Products;
-
-    public static void Add(Product obj){
-       if(obj == null){
-         return;
-       }
-
-       Products.Add(obj);
+    public void Delete(Product product)
+    {
+        _context.Product.Remove(product);
+        _context.SaveChanges();
     }
 
-    public static void Delete(string code){
-        var productToDelete = Get(code);
+    public Product? GetDetails(int id)
+    {
+        var product = _context.Product
+        .Include(x=>x.Communities)
+        .FirstOrDefault(m => m.Id == id);
 
-        if (productToDelete != null){
-            Products.Remove(productToDelete);
-        }
+        // var productDetailviewModel = new ProductDetailViewModel
+        // {
+        //     Name = product.Name,
+        //     Dimension = product.Dimension,
+        //     Category = product.Category,
+        //     WeightKg = product.WeightKg,
+        //     ShippingAvailable = product.ShippingAvailable,
+        //     Stock = product.Stock,
+        //     Price = product.Price,
+        //     Communities = product.Communities
+        // };
+        return product;
     }
-    public static Product? Get(string code) => Products.FirstOrDefault(x => x.Id.ToString().ToLower() == code.ToLower());
+
+    public ProductViewModel GetAll(string filter)
+    {
+        var query = from product in _context.Product select product;
+
+        var communities = query.Include(x=>x.Communities);
+
+        if(!string.IsNullOrEmpty(filter))
+            {
+                query = query.Where(x => x.Name.ToLower().Contains(filter) ||
+                             x.Price.ToString().Contains(filter));
+                
+            }
+
+            var model = new ProductViewModel();
+            model.Products = query.ToList();
+            return model;
+    }
+
+public Product? GetProduct(int id)
+    {
+        var product = _context.Product
+        .Include(x=>x.Communities)
+        .FirstOrDefault(m => m.Id == id);
+        return product;
+    }
+
+    public void Update(Product product, int id)
+    {      
+        _context.Update(product);
+        _context.SaveChanges();           
+    }
 }
+
+// public static class ProductService{
+//     static List<Product> Products { get; set;}
+
+//     static ProductService(){
+//         Products = new List<Product>
+//         {
+//             new Product { Name = "Shredder Pro", 
+//             Id=1, 
+//             Category=ProductCategory.Machine, 
+//             Price=3000,
+//             WeightKg = 900,
+//             ShippingAvailable = true,
+//             Dimension="70x30x40"},
+//         };
+//     }
+
+//     public static List<Product> GetAll() => Products;
+
+//     public static void Add(Product obj){
+//        if(obj == null){
+//          return;
+//        }
+
+//        Products.Add(obj);
+//     }
+
+//     public static void Delete(string code){
+//         var productToDelete = Get(code);
+
+//         if (productToDelete != null){
+//             Products.Remove(productToDelete);
+//         }
+//     }
+//     public static Product? Get(string code) => Products.FirstOrDefault(x => x.Id.ToString().ToLower() == code.ToLower());
+// }

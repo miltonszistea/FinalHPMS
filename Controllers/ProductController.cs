@@ -8,67 +8,41 @@ using Microsoft.EntityFrameworkCore;
 using FinalHPMS.Data;
 using FinalHPMS.Models;
 using FinalHPMS.ViewModels;
+using FinalHPMS.Services;
 
 namespace FinalHPMS.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ProductContext _context;
-
-        public ProductController(ProductContext context)
+        private IProductService _productService;
+        public ProductController(IProductService productService)
         {
-            _context = context;
+            _productService = productService;
         }
 
         // GET: Product
         public async Task<IActionResult> Index(string filter)
         {
-            var query = from product in _context.Product select product;
+            var productContext = _productService.GetAll(filter);
 
-            var communities = query.Include(x=>x.Communities);
-
-            if(!string.IsNullOrEmpty(filter))
-            {
-                query = query.Where(x => x.Name.ToLower().Contains(filter) ||
-                             x.Price.ToString().Contains(filter));
-                
-            }
-
-            var model = new ProductViewModel();
-            model.Products = await query.ToListAsync();
-
-              return _context.Product != null ? 
-                          View(model) :
-                          Problem("Entity set 'ProductContext.Product'  is null.");
+            return View(productContext);
         }
 
         // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var productDetailViewModel = _productService.GetDetails(id.Value);
+
+            if (productDetailViewModel == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.Include(x=>x.Communities)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new ProductDetailViewModel();
-            viewModel.Name = product.Name;
-            viewModel.Dimension = product.Dimension;
-            viewModel.Category = product.Category;
-            viewModel.WeightKg = product.WeightKg;
-            viewModel.ShippingAvailable = product.ShippingAvailable;
-            viewModel.Stock = product.Stock;
-            viewModel.Price = product.Price;
-            viewModel.Communities = product.Communities;
-
-
-            return View(product);
+            return View(productDetailViewModel);
         }
 
         // GET: Product/Create
@@ -78,20 +52,15 @@ namespace FinalHPMS.Controllers
         }
 
         // POST: Product/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product, ProductCreateViewModel productCreateViewModel)
         { 
-            var CommunitiesList = _context.Community
-                .Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Name
-                }).ToListAsync();
-
-            var model = new Product() {
+            // ModelState.Remove("CommunityId");
+            ModelState.Remove("Communities");
+            if (ModelState.IsValid)
+            {
+                    var model = new Product() {
                     Name = productCreateViewModel.Name,
                     Price = productCreateViewModel.Price,
                     Category = productCreateViewModel.Category,
@@ -100,43 +69,35 @@ namespace FinalHPMS.Controllers
                     Dimension = productCreateViewModel.Dimension,
                     Stock = productCreateViewModel.Stock,  
                     };
-
-            // ModelState.Remove("CommunityId");
-            ModelState.Remove("Communities");
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(model);
-                await _context.SaveChangesAsync();
+                _productService.Create(model);
                 return RedirectToAction(nameof(Index));
             }            
-            return View(model);
-
+            return View(productCreateViewModel);
         }
 
 
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock, Communities, CommunityId")] Product product)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         _context.Add(product);
-        //         await _context.SaveChangesAsync();
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     return View(product);
-        // }
+        // // [HttpPost]
+        // // [ValidateAntiForgeryToken]
+        // // public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock, Communities, CommunityId")] Product product)
+        // // {
+        // //     if (ModelState.IsValid)
+        // //     {
+        // //         _context.Add(product);
+        // //         await _context.SaveChangesAsync();
+        // //         return RedirectToAction(nameof(Index));
+        // //     }
+        // //     return View(product);
+        // // }
 
         // GET: Product/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
+            var product = _productService.GetDetails(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -145,35 +106,18 @@ namespace FinalHPMS.Controllers
         }
 
         // POST: Product/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Product product)
+        public IActionResult Edit(int id, [Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Product product)
         {
             if (id != product.Id)
             {
                 return NotFound();
             }
-
+            ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _productService.Update(product, id);
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -182,13 +126,12 @@ namespace FinalHPMS.Controllers
         // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = _productService.GetDetails(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -202,23 +145,18 @@ namespace FinalHPMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Product == null)
-            {
-                return Problem("Entity set 'ProductContext.Product'  is null.");
-            }
-            var product = await _context.Product.FindAsync(id);
+
+            var product = _productService.GetProduct(id);
             if (product != null)
             {
-                _context.Product.Remove(product);
+                _productService.Delete(product);
             }
-            
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
-        {
-          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+        // private bool ProductExists(int id)
+        // {
+        //   return _productService.GetDProduct(id) != null;
+        // }
     }
 }

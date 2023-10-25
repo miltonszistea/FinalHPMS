@@ -7,7 +7,10 @@
     var Communities = ViewData["Communities"];
     var PaymentMethod = ViewData["Communities"];
 }
-
+<head>
+    <link rel="stylesheet" href="wwwroot\css\site.css">
+</head>
+<body class="green-bg">
 <h1>Generar nueva venta</h1>
 
 <h4>Datos para facturación</h4>
@@ -72,7 +75,7 @@
 <div>
     <a asp-action="Index">Volver al Listado de Tickets</a>
 </div>
-
+</body>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

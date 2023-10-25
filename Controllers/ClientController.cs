@@ -85,6 +85,7 @@ namespace FinalHPMS.Controllers
 
             ModelState.Remove("TicketId");
             ModelState.Remove("Tickets");
+            ModelState.Remove("DateAndHour");
             if (ModelState.IsValid)
             {
                 _context.Add(model);

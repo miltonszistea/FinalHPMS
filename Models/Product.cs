@@ -24,15 +24,15 @@ public class Product{
     [Required]
     public int WeightKg { get; set; }
 
-    [Display(Name="Envío disponible")]
+    [Display(Name="Envío")]
     [Required]
     public bool ShippingAvailable { get; set; }
 
-    [Display(Name="Dimensiones")]
+    [Display(Name="Tamaño")]
     [Required]
     public required string Dimension { get; set; }
 
-    [Display(Name="Stock Actual")]
+    [Display(Name="Stock")]
     [Required]
     public int Stock { get; set; }
 
