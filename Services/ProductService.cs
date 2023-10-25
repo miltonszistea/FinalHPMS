@@ -40,17 +40,6 @@ public class ProductService : IProductService
         .Include(x=>x.Communities)
         .FirstOrDefault(m => m.Id == id);
 
-        // var productDetailviewModel = new ProductDetailViewModel
-        // {
-        //     Name = product.Name,
-        //     Dimension = product.Dimension,
-        //     Category = product.Category,
-        //     WeightKg = product.WeightKg,
-        //     ShippingAvailable = product.ShippingAvailable,
-        //     Stock = product.Stock,
-        //     Price = product.Price,
-        //     Communities = product.Communities
-        // };
         return product;
     }
 
@@ -62,6 +51,7 @@ public class ProductService : IProductService
 
         if(!string.IsNullOrEmpty(filter))
             {
+                filter = filter.ToLower();
                 query = query.Where(x => x.Name.ToLower().Contains(filter) ||
                              x.Price.ToString().Contains(filter));
                 

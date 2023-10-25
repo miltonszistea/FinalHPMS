@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    var Communities = ViewData["Communities"];
 }
 <head>
     <link rel="stylesheet" href="wwwroot\css\site.css">
@@ -25,6 +26,11 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+
+                <label asp-for="Communities" class="control-label"></label>
+                <select class="form-control" asp-for="Communities" asp-items="ViewBag.Communities">
+                </select>
+
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
                 <select asp-for="Category" class="form-control">

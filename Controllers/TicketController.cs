@@ -127,7 +127,6 @@ namespace FinalHPMS.Controllers
                     Stock = productCreateViewModel.Stock,  
                     };
 
-            // ModelState.Remove("CommunityId");
             ModelState.Remove("Communities");
 
             if (ModelState.IsValid)

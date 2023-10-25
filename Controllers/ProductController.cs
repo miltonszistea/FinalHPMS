@@ -15,9 +15,11 @@ namespace FinalHPMS.Controllers
     public class ProductController : Controller
     {
         private IProductService _productService;
-        public ProductController(IProductService productService)
+        private ICommunityService _communityService;
+        public ProductController(IProductService productService, ICommunityService communityService)
         {
             _productService = productService;
+            _communityService = communityService;
         }
 
         // GET: Product
@@ -47,6 +49,13 @@ namespace FinalHPMS.Controllers
         // GET: Product/Create
         public IActionResult Create()
         {
+            var communityList = _communityService.GetAll();
+            ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
+            .Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }), "Value", "Text");
             return View();
         }
 

@@ -38,19 +38,9 @@ public class CommunityService : ICommunityService
     {
         var community = _context.Community
         .Include(x=>x.Products)
+        .Include(x=>x.Tickets)
         .FirstOrDefault(m => m.Id == id);
 
-        // var productDetailviewModel = new ProductDetailViewModel
-        // {
-        //     Name = product.Name,
-        //     Dimension = product.Dimension,
-        //     Category = product.Category,
-        //     WeightKg = product.WeightKg,
-        //     ShippingAvailable = product.ShippingAvailable,
-        //     Stock = product.Stock,
-        //     Price = product.Price,
-        //     Communities = product.Communities
-        // };
         return community;
     }
 
@@ -72,6 +62,16 @@ public CommunityViewModel GetAll(string filter)
             model.Communities = query.ToList();
             return model;
     }
+
+public CommunityViewModel GetAll()
+{
+    var query = from community in _context.Community select community;
+    var communities = query.Include(x=>x.Products);
+    var model = new CommunityViewModel();
+    model.Communities = query.ToList();
+    return model;
+}
+
 
 public Community? GetCommunity(int id)
     {
