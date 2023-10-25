@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using FinalHPMS.Models;
 using FinalHPMS.Services;
 using Microsoft.AspNetCore.Identity;
+using FinalHPMS.Views.Roles.ViewModels;
 
 namespace FinalHPMS.Controllers;
 
@@ -24,15 +25,16 @@ public class RolesController : Controller
     {
         return View();
     }
+
     [HttpPost]
-        public IActionResult Create(string roleName)
+    public IActionResult Create(RoleCreateViewModel model)
     {
-        if(string.IsNullOrEmpty(roleName))
+        if(string.IsNullOrEmpty(model.RoleName))
         {
               return View();  
         }
-        
-        var role = new IdentityRole(roleName);
+
+        var role = new IdentityRole(model.RoleName);
         _rolesManager.CreateAsync(role);
 
         return RedirectToAction("Index");
