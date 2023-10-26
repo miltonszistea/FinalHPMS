@@ -35,12 +35,15 @@ Experiencia de usuario: La aplicación cuenta con una interfaz intuitiva y de us
 
 ## Funcionalidad de Ventas - Generación de Tickets :chart_with_upwards_trend::
 Además de las características principales mencionadas, se ha desarrollado la funcionalidad de la solapa Ventas. Esto le permite al Employee VENDER, es decir, no sólo accederá al historial de todas las ventas realizadas por la compañía, sino que al hacer click en "Nueva Venta" se dirigirá a la confección de un ticket. De allí deberá seleccionar ciertos datos que deberán existir en nuestra base de datos, como seleccionar un Cliente (1 a 1), y al elegir una Comunidad (1 a 1), tendrá a su disposición todos los productos que están en Stock existente en la misma (M a 1) para elegir cuáles y cuánta cantidad quiere de cada uno.
-Este vista tiene dentro de sí misma otra compleja funcionalidad, donde una vez seleccionados los productos y sus cantidades, se calculará un Total de la venta que deberá abonar el cliente. Una vez marcados todos los datos, se imprimirá la Fecha y Hora (timestamp) y se mostrará el comprobante con el identificador del ticket automáticamente generado.
-Por lo tanto, son 4 Funcionalidades Extra:
+Este vista tiene dentro de sí misma otra compleja funcionalidad, donde una vez seleccionados los productos y sus cantidades, se calculará un Total de la venta que deberá abonar el cliente. Una vez marcados todos los datos, se imprimirá la Fecha y Hora (timestamp) y se mostrará el comprobante con el identificador del ticket automáticamente generado. Si el usuario elige “Cash” deberá tener un 5% de descuento en el Total previamente calculado, si elige “Crypto” deberá un 2% de descuento. Por el momento, no cambiará nada si elige Debit. También calculará automáticamente el Stock actualizado que queda luego de cada venta.
+
+Por lo tanto, son 6 Funcionalidades Extra:
 -Creación de Ticket con Filtrado de Productos según la comunidad (implementación AJAX)
 -Cálculo del Total
 -Fecha y Hora automática
 -Identificador automático
+-Cambio de cálculo de total según Método de Pago
+-Cálculo automático de Stock luego de cada venta
 Ahora, si utilizas este proyecto, podrás tener una fácil y eficiente gestión de tu stock de máquinas de procesamiento de plástico en tu negocio!
 
 ## Contribuciones :books::
