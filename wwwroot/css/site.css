@@ -24,6 +24,13 @@ body {
 .green-bg {
   background-color: #b8efb9; /* Color verde claro */
 }
+.imagebackgroundhome {
+  background-image: url('../images/imagebackgroundhome.jpg');
+  background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
+  background-repeat: no-repeat; /* Evita la repetición de la imagen */
+  /* Puedes agregar más propiedades CSS según tus necesidades */
+}
+
 .pinkdark-bg {
   background-color: #FFA1A1; /* Color rosa oscuro */
 }

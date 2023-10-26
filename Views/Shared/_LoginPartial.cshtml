@@ -2,11 +2,19 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+
 @{
-    var userName = User.Identity.Name;
-    var userNameParts = userName.Split('@');
-    var displayName = userNameParts.Length > 0 ? userNameParts[0] : userName;
+    string userName = User.Identity.Name;
+    string displayName = string.Empty;
+
+    if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(userName))
+    {
+        string[] userNameParts = userName.Split('@');
+        displayName = userNameParts.Length > 0 ? userNameParts[0] : userName;
+    }
 }
+
+
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

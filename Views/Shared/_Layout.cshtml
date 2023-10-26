@@ -21,16 +21,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav nav-tabs flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                            <a class="btn btn-outline-success me-2" type="button" asp-area="" asp-controller="Home" asp-action="Index">Somos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Gestión de Stock</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Stock</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Community" asp-action="Index">Gestión de Sucursales</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Community" asp-action="Index">Sucursales</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Index">Base de Clientes</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Index">Clientes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Ticket" asp-action="Index">Ventas</a>
@@ -38,6 +38,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Licencia</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-bs-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administración
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="Users" asp-action="Index">Usuarios</a>
+                                    <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Roles</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -52,7 +64,7 @@
 
     <footer class="border-top footer">
         <div class="footer-bg text-center" style="color: brown;">
-            &copy; 2023 - Plasticool - <a asp-area="" asp-controller="Home" asp-action="Privacy">Licencia</a>
+            &copy; 2023 - Plasticool - <a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" asp-area="" asp-controller="Home" asp-action="Privacy">Licencia</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

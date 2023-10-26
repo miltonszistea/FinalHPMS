@@ -1,26 +1,47 @@
-﻿@model List<Product>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model List<Product>
 @{
     ViewData["Title"] = "¡Bienvenidos a PlastiCool!";
+    string userName = User.Identity.Name;
+    string displayName = string.Empty;
+
+    if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(userName))
+    {
+        string[] userNameParts = userName.Split('@');
+        displayName = userNameParts.Length > 0 ? userNameParts[0] : userName;
+    }
 }
 <head>
     <link rel="stylesheet" href="wwwroot\css\site.css">
 </head>
-
-<body class="green-bg">
-    <img src="../images/flechaarriba-remove.png" width="110" height="120" align="right">
-    <div class="text-center">
-        <h1 style="font-family: 'Poppins', sans-serif; color: #FFFFFF;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">PlastiCool</h1>
-                <p style="font-family: 'Poppins', italic, sans-serif; color: brown;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Un enfoque sostenible para el futuro. Una comunidad de comunidades.</p>
+<body class="imagebackgroundhome">
+    <img src="../images/flechaarriba-remove.png" width="90" height="130" align="right">
+    <div class="text-left">
         <div class="container">
-        <br>
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Inicia Sesión</a> 
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Regístrate</a>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h5 style="font-family: 'Poppins', sans-serif; color: brown;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Gestión de Ventas de Productos Orientados al Reciclaje de Plástico</h5>
-    </div>
+            <h1 style="font-family: 'Poppins', sans-serif; color: #FFFFFF;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">PlastiCool</h1>
+            <br>                        
+                @if (User.Identity!=null && User.Identity.IsAuthenticated)
+                {
+                    <h5 style="font-family: 'Poppins', sans-serif; color: #FFFFFF;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Hola, @displayName</h5>
+                }
+                else
+                {
+                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Inicia Sesión</a>
+                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Regístrate</a>
+                }
+            <br>
+            <br>
+            <br>
+            <div class="text-center" style="color: brown; font-family: 'Poppins', sans-serif; text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);">
+                <h4 style="font-family: 'Poppins', sans-serif; color: brown;text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);">Gestión de Ventas de Productos Orientados al Reciclaje de Plástico</h4>
+                <h5>Quiénes Somos</h5
+                <p>Nuestra misión es crear un impacto positivo en la vida de las personas a través de soluciones innovadoras y sostenibles. En PlastiCool, creemos en la responsabilidad social y ambiental, y trabajamos continuamente para minimizar nuestro impacto en el planeta.</p>
+                <p>Desde nuestros humildes comienzos, hemos crecido y evolucionado, pero siempre hemos mantenido nuestra pasión por la excelencia y la innovación. Cada día, nos esforzamos por superar los desafíos y superar las expectativas de nuestros clientes.</p>
+                <p>En PlastiCool, no somos solo una empresa, somos una comunidad comprometida con un propósito. ¡Gracias por ser parte de nuestro viaje!</p>
+                            <p style="font-family: 'Poppins', italic, sans-serif; color: brown;text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);">Un enfoque sostenible para el futuro. Una comunidad de comunidades.</p>
+            </div>
+        </div>
     </div>
 </body>

@@ -65,8 +65,8 @@ namespace FinalHPMS.Controllers
         // POST: Ticket/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Ticket ticket, TicketCreateViewModel ticketCreateViewModel)
-        { 
+        public IActionResult Create(Ticket ticket, TicketCreateViewModel ticketCreateViewModel)
+        {
             //ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace FinalHPMS.Controllers
                 };
                 _ticketService.Create(model);
                 return RedirectToAction(nameof(Index));
-            }            
+            }
             return View(ticketCreateViewModel);
 
         }
@@ -142,16 +142,15 @@ namespace FinalHPMS.Controllers
         // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-           var ticket = _ticketService.GetTicket(id);
+            var ticket = _ticketService.GetTicket(id);
             if (ticket != null)
             {
                 _ticketService.Delete(ticket);
             }
             return RedirectToAction(nameof(Index));
         }
-
 
         // private bool TickettExists(int id)
         // {

@@ -42,6 +42,8 @@ namespace FinalHPMS.Data
             .WithOne(c=>c.Community)
             .HasForeignKey(c=>c.CommunityId);
 
+            //base.OnModelCreating(modelBuilder);
+            
             // modelBuilder.Entity<Ticket>()
             // .HasOne(c=>c.Client)
             // .WithMany(c=>c.Tickets)

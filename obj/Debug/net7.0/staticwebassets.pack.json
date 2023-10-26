@@ -97,6 +97,10 @@
       "PackagePath": "staticwebassets\\images\\flechaarriba.png"
     },
     {
+      "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerrProg\\FinalHPMS\\wwwroot\\images\\imagebackgroundhome.jpg",
+      "PackagePath": "staticwebassets\\images\\imagebackgroundhome.jpg"
+    },
+    {
       "Id": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerrProg\\FinalHPMS\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

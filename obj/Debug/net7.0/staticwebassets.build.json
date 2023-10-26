@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "46dpSAEcsVbDRzei04QNrVtIOpRulbw5ij1i3w+wfsQ=",
+  "Hash": "QmRCn/6a869hq2ekuVXwvEpQcDh40tenZHSVZRoQ4BA=",
   "Source": "FinalHPMS",
   "BasePath": "_content/FinalHPMS",
   "Mode": "Default",
@@ -1443,6 +1443,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\flechaarriba.png"
+    },
+    {
+      "Identity": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerrProg\\FinalHPMS\\wwwroot\\images\\imagebackgroundhome.jpg",
+      "SourceId": "FinalHPMS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerrProg\\FinalHPMS\\wwwroot\\",
+      "BasePath": "_content/FinalHPMS",
+      "RelativePath": "images/imagebackgroundhome.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\imagebackgroundhome.jpg"
     },
     {
       "Identity": "C:\\Users\\mszpryngier\\OneDrive - RANSecurity\\Escritorio\\HerrProg\\FinalHPMS\\wwwroot\\images\\PlastiCoolLogo.png",
