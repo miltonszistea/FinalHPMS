@@ -16,8 +16,11 @@
 <head>
     <link rel="stylesheet" href="wwwroot\css\site.css">
 </head>
-<body class="imagebackgroundhome">
-    <img src="../images/flechaarriba-remove.png" width="90" height="130" align="right">
+<body class="green-bg">
+     @if (!User.Identity.IsAuthenticated)
+    {
+        <img src="../images/flechaarriba-remove.png" width="90" height="130" align="right">
+    }
     <div class="text-left">
         <div class="container">
             <h1 style="font-family: 'Poppins', sans-serif; color: #FFFFFF;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">PlastiCool</h1>

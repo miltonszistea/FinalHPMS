@@ -11,7 +11,7 @@
 <div class="row">
     <form method="get" asp-action="Index" asp-controller="Ticket">
         <div class = "col-6 form-group">
-        <input asp-for="Filter" class="form-control" type="search" placeholder="Busque por 3 campos: id, nombre o producto" aria-label="Search">
+        <input asp-for="Filter" class="form-control" type="search" placeholder="Busque id del ticket o nombre del cliente" aria-label="Search">
                 <br>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtre su ticket</button>
         </div>
@@ -77,9 +77,6 @@
                 class="btn btn-secondary btn-sm" role="button" aria-pressed="true"> Detalles</a>
                 <a asp-action="Delete" asp-route-id="@item.Id"
                 class="btn btn-danger btn-sm" role="button" aria-pressed="true">Eliminar</a>
-                @* <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> *@
             </td>
         </tr>
 }

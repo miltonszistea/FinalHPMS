@@ -3,5 +3,6 @@ public enum CommunityType
     CollectionPoint,
     RecyclingSpace,
     MachineShop,
-    AwarenessPoint
+    AwarenessPoint,
+    PlasticAcademy
 }
