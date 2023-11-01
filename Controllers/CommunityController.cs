@@ -80,6 +80,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Community/Edit/5
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -98,6 +99,7 @@ namespace FinalHPMS.Controllers
         // POST: Community/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int id, [Bind("Id,Name,CityAndCountry,Address,Phone,Mail,CommunityType,ProductId")] Community community)
         {
             if (id != community.Id)
@@ -114,6 +116,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Community/Delete/5
+        [Authorize(Roles = "Administrator,Supervisor")]
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -133,6 +136,7 @@ namespace FinalHPMS.Controllers
         // POST: Community/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Supervisor")]
         public IActionResult DeleteConfirmed(int id)
         {
             var community = _communityService.GetCommunity(id);

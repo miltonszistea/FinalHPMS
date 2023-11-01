@@ -13,7 +13,7 @@ using FinalHPMS.Services;
 
 namespace FinalHPMS.Controllers
 {
-    //[Authorize(Roles = "Administrator,Employee,Supervisor")]
+    [Authorize(Roles = "Administrator,Employee,Supervisor")]
     public class TicketController : Controller
     {
         private ITicketService _ticketService;
@@ -50,6 +50,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Ticket/Create
+        [Authorize(Roles = "Administrator,Employee")]
         public IActionResult Create()
         {
             var clientList = _ticketService.GetAll();
@@ -65,6 +66,7 @@ namespace FinalHPMS.Controllers
         // POST: Ticket/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Employee")]
         public IActionResult Create(Ticket ticket, TicketCreateViewModel ticketCreateViewModel)
         {
             //ModelState.Remove("Communities");
@@ -89,6 +91,7 @@ namespace FinalHPMS.Controllers
 
 
         // GET: Ticket/Edit/5
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -107,6 +110,7 @@ namespace FinalHPMS.Controllers
         // POST: Ticket/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int id, [Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Ticket ticket)
         {
             if (id != ticket.Id)
@@ -123,6 +127,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Ticket/Delete/5
+        [Authorize(Roles = "Administrator,Supervisor")]
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -142,6 +147,7 @@ namespace FinalHPMS.Controllers
         // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Supervisor")]
         public IActionResult DeleteConfirmed(int id)
         {
             var ticket = _ticketService.GetTicket(id);

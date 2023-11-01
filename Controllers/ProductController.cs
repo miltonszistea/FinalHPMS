@@ -86,6 +86,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Product/Edit/5
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -104,6 +105,7 @@ namespace FinalHPMS.Controllers
         // POST: Product/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int id, [Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Product product)
         {
             if (id != product.Id)
@@ -120,6 +122,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Product/Delete/5
+        [Authorize(Roles = "Administrator,Supervisor")]
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -139,6 +142,7 @@ namespace FinalHPMS.Controllers
         // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Supervisor")]
         public IActionResult DeleteConfirmed(int id)
         {
             var product = _productService.GetProduct(id);

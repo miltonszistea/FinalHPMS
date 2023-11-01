@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FinalHPMS.Controllers;
 
-//[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Administrator")]
 public class UsersController : Controller
 {
     private readonly UserManager<IdentityUser> _userManager;

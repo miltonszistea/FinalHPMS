@@ -76,6 +76,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Client/Edit/5
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -94,6 +95,7 @@ namespace FinalHPMS.Controllers
         // POST: Client/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int id, [Bind("Id,Name,Apellido,Address,Phone,Mail")] Client client)
         {
             if (id != client.Id)
@@ -110,6 +112,7 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Client/Delete/5
+        [Authorize(Roles = "Administrator,Supervisor")]
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -129,6 +132,7 @@ namespace FinalHPMS.Controllers
         // POST: Client/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Supervisor")]
         public IActionResult DeleteConfirmed(int id)
         {
             var client = _clientService.GetClient(id);
