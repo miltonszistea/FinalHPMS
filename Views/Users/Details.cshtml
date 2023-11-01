@@ -1,0 +1,44 @@
+@using Microsoft.AspNetCore.Identity;
+@using FinalHPMS.Views.Users.ViewModels;
+@model UserDetailViewModel;
+
+@{
+    ViewData["Title"] = "Details";
+}
+<head>
+    <link rel="stylesheet" href="wwwroot\css\site.css">
+</head>
+<body class="green-bg">
+<h1>Detalle de usuario</h1>
+
+<div>
+    <h4>Datos y características:</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+    </dl>
+
+</div>
+<div>
+    <a asp-action="Index"
+    class="btn btn-outline-info" role="button" aria-pressed="true">
+    Volver a la Vista de Usuarios</a>
+</div>
+</body>

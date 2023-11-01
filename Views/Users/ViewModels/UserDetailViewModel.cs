@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FinalHPMS.Views.Users.ViewModels;
 
-public class UserEditViewModel
+public class UserDetailViewModel
 {
     [Display(Name="Nombre")]
     public string UserName{get;set;}

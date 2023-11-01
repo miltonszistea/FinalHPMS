@@ -1,5 +1,7 @@
 @using Microsoft.AspNetCore.Identity;
-@model List<IdentityUser>
+@using FinalHPMS.Views.Users.ViewModels;
+@model List<UserIndexViewModel>;
+@*@model List<IdentityUser>*@
 
 
 <head>
@@ -31,7 +33,7 @@
                 @Html.DisplayNameFor(model => model[0].Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].PhoneNumber)
+                @Html.DisplayNameFor(model => model[0].Role)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model[0].Id)
@@ -49,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)

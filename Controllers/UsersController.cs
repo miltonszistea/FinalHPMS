@@ -22,14 +22,20 @@ public class UsersController : Controller
 
     public IActionResult Index()
     {
-        var users = _userManager.Users.ToList();
+        var users = _userManager.Users.Select(user => new UserIndexViewModel
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Role = _userManager.GetRolesAsync(user).Result.FirstOrDefault(),
+            Id = user.Id
+        }).ToList();
         return View(users);
     }
 
     //GET Edit
-    public async Task<IActionResult> Edit(string userId)
+    public async Task<IActionResult> Edit(string userid)
     {
-        var user = await _userManager.FindByIdAsync(userId);
+        var user = await _userManager.FindByIdAsync(userid);
         var userEditViewModel = new UserEditViewModel
         {
             UserName = user.UserName,
@@ -39,18 +45,70 @@ public class UsersController : Controller
         return View(userEditViewModel);
     }
 
+    //POST Edit
     [HttpPost]
     public async Task<IActionResult> Edit(UserEditViewModel model)
     {
         var user = await _userManager.FindByNameAsync(model.UserName);
         if (user != null)
         {
-            RedirectToAction("Index");
             await _userManager.AddToRoleAsync(user, model.Role);
+            RedirectToAction("Index");
         }
         return RedirectToAction("Index");
     }
-    //update
-    //delete
+    //GET Details
+        public async Task<IActionResult> Details(string userid)
+        {
+            if (userid == null)
+            {
+                return NotFound();
+            }
+        var user = await _userManager.FindByIdAsync(userid);
+        var Rol = await _userManager.GetRolesAsync(user);
+        var userDetailViewModel = new UserDetailViewModel
+        {
+            UserName = user.UserName,
+            Email = user.Email,
+            Role = Rol[0],
+        };
 
+            if (userDetailViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(userDetailViewModel);
+        }
+    
+    // GET: User/Delete/5
+    public async Task<IActionResult> Delete(string userid)
+    {
+        if (userid == null)
+        {
+            return NotFound();
+        }
+
+        var user = await _userManager.FindByIdAsync(userid);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // POST: User/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string userid)
+        {
+            var user = await _userManager.FindByIdAsync(userid);
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
+            return RedirectToAction(nameof(Index));
+        }
 }
