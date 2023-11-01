@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FinalHPMS.Views.Roles.ViewModels;
 
-public class RoleCreateViewModel
+public class RoleEditViewModel
 {
     [Display(Name="Nombre de Rol")]
-    public string RoleName{get;set;}
+    public required string RoleName{get;set;}
 }

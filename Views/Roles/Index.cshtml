@@ -47,11 +47,11 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id"
+                <a asp-action="Edit" asp-route-rolid="@item.Id"
                 class="btn btn-info btn-sm" role="button" aria-pressed="true"> Editar</a>
-                <a asp-action="Details" asp-route-id="@item.Id"
+                <a asp-action="Details" asp-route-rolid="@item.Id"
                 class="btn btn-secondary btn-sm" role="button" aria-pressed="true"> Detalles</a>
-                <a asp-action="Delete" asp-route-id="@item.Id"
+                <a asp-action="Delete" asp-route-rolid="@item.Id"
                 class="btn btn-danger btn-sm" role="button" aria-pressed="true">Eliminar</a>
             </td>
         </tr>

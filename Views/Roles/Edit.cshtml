@@ -1,0 +1,39 @@
+@using Microsoft.AspNetCore.Identity;
+@using FinalHPMS.Views.Roles.ViewModels;
+@model RoleEditViewModel;
+
+@{
+    ViewData["Title"] = "Edit";
+    var roleList = ViewData["Roles"];
+}
+<head>
+    <link rel="stylesheet" href="wwwroot\css\site.css">
+</head>
+<body class="green-bg">
+<h1>Editar Rol</h1>
+
+<h4>Modifique el nombre del Rol</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index"
+                class="btn btn-outline-info" role="button" aria-pressed="true">
+                Volver a la Vista de Roles</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
