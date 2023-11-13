@@ -73,13 +73,13 @@ namespace FinalHPMS.Controllers
                 {
                     Name = productCreateViewModel.Name,
                     Price = productCreateViewModel.Price,
-                    Category = productCreateViewModel.Category,
+                    ProductCategory = productCreateViewModel.Category,
                     WeightKg = productCreateViewModel.WeightKg,
                     ShippingAvailable = productCreateViewModel.ShippingAvailable,
                     Dimension = productCreateViewModel.Dimension,
                     Stock = productCreateViewModel.Stock,
                 };
-                _productService.Create(model);
+                _productService.Create(model, productCreateViewModel.CommunityIds);
                 return RedirectToAction(nameof(Index));
             }
             return View(productCreateViewModel);

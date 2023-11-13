@@ -28,8 +28,9 @@
             </div>
 
                 <label asp-for="Communities" class="control-label"></label>
-                <select class="form-control" asp-for="Communities" asp-items="ViewBag.Communities">
-                </select>
+                <!--<select class="form-control" asp-for="Communities" asp-items="ViewBag.Communities">
+                </select>-->
+                @Html.ListBoxFor(model => model.CommunityIds, new SelectList(ViewBag.Communities, "Value", "Text"), new { @class = "form-control" })
 
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>

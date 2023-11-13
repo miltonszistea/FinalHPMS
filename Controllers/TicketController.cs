@@ -79,7 +79,7 @@ namespace FinalHPMS.Controllers
                     PaymentMethod = ticketCreateViewModel.PaymentMethod,
                     DateAndHour = ticketCreateViewModel.DateAndHour,
                     Total = ticketCreateViewModel.Total,
-                    Products = ticketCreateViewModel.Products,
+                    ProductTickets = ticketCreateViewModel.Products,
                     //Communities = ticketCreateViewModel.Communities,
                 };
                 _ticketService.Create(model);

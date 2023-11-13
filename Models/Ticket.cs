@@ -2,29 +2,22 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FinalHPMS.Models;
 
-public class Ticket{
-    
+public class Ticket
+{
     [Required]
+    [Key]
     public int Id { get; set; }
-
-    [Display(Name="Fecha y hora")]
+    public string? Description { get; set; }
     [Required]
     public required DateTime DateAndHour { get; set; }
-    
-    [Display(Name="Total")] 
     [Required]
-    public int Total { get; set; }
-    
-    [Display(Name="Cliente")]
-    [Required]
-    public Client Client { get; set; }
-
-    [Display(Name="Método de pago")]
+    public double Total { get; set; }
     [Required]
     public PaymentMethod PaymentMethod { get; set; }
-    public int ProductId {get; set;}
-    public virtual List<Product> Products {get;set;}
-    public int ClientId {get; set;}
-    public int CommunityId{get; set;}
-    public Community Community{get; set;}
+    public int CommunityId { get; set; }
+    public Community? Community { get; set; } 
+    public int ClientId { get; set; }
+    public Client? Client { get; set; } 
+    public List<ProductTicket>? ProductTickets { get; set; } 
+
 }

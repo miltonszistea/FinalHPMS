@@ -17,7 +17,7 @@ public class ClientService : IClientService
     }
     public void Create(Client clientCreate)
     {
-      var ClientsList = _context.Client
+      var ClientsList = _context.Clients
         .Select(c => new SelectListItem
         {
          Value = c.Id.ToString(),
@@ -30,13 +30,13 @@ public class ClientService : IClientService
 
     public void Delete(Client client)
     {
-        _context.Client.Remove(client);
+        _context.Clients.Remove(client);
         _context.SaveChanges();
     }
 
     public Client? GetDetails(int id)
     {
-        var client = _context.Client
+        var client = _context.Clients
         .Include(x=>x.Tickets)
         .FirstOrDefault(m => m.Id == id);
 
@@ -56,7 +56,7 @@ public class ClientService : IClientService
 
 public ClientViewModel GetAll(string filter)
     {
-        var query = from client in _context.Client select client;
+        var query = from client in _context.Clients select client;
 
         var clients = query.Include(x=>x.Tickets);
 
@@ -75,7 +75,7 @@ public ClientViewModel GetAll(string filter)
 
 public Client? GetClient(int id)
     {
-        var client = _context.Client
+        var client = _context.Clients
         .Include(x=>x.Tickets)
         .FirstOrDefault(m => m.Id == id);
         return client;

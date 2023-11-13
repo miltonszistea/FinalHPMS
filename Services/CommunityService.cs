@@ -17,7 +17,7 @@ public class CommunityService : ICommunityService
     }
     public void Create(Community communityCreate)
     {
-      var CommunitiesList = _context.Community
+      var CommunitiesList = _context.Communities
         .Select(c => new SelectListItem
         {
          Value = c.Id.ToString(),
@@ -30,14 +30,14 @@ public class CommunityService : ICommunityService
 
     public void Delete(Community community)
     {
-        _context.Community.Remove(community);
+        _context.Communities.Remove(community);
         _context.SaveChanges();
     }
 
     public Community? GetDetails(int id)
     {
-        var community = _context.Community
-        .Include(x=>x.Products)
+        var community = _context.Communities
+        .Include(x=>x.ProductCommunities)
         .Include(x=>x.Tickets)
         .FirstOrDefault(m => m.Id == id);
 
@@ -46,9 +46,9 @@ public class CommunityService : ICommunityService
 
 public CommunityViewModel GetAll(string filter)
     {
-        var query = from community in _context.Community select community;
+        var query = from community in _context.Communities select community;
 
-        var communities = query.Include(x=>x.Products);
+        //var communities = query.Include(x=>x.Products);
 
         if(!string.IsNullOrEmpty(filter))
             {
@@ -65,8 +65,8 @@ public CommunityViewModel GetAll(string filter)
 
 public CommunityViewModel GetAll()
 {
-    var query = from community in _context.Community select community;
-    var communities = query.Include(x=>x.Products);
+    var query = from community in _context.Communities select community;
+    //var communities = query.Include(x=>x.ProductCommunities);
     var model = new CommunityViewModel();
     model.Communities = query.ToList();
     return model;
@@ -75,8 +75,8 @@ public CommunityViewModel GetAll()
 
 public Community? GetCommunity(int id)
     {
-        var community = _context.Community
-        .Include(x=>x.Products)
+        var community = _context.Communities
+        //.Include(x=>x.Products)
         .FirstOrDefault(m => m.Id == id);
         return community;
     }

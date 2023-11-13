@@ -5,7 +5,7 @@ namespace FinalHPMS.Services;
 
 public interface IProductService
 {
-    void Create(Product obj);
+    void Create(Product obj,List<int> CommunityIds);
     ProductViewModel GetAll(string filter);
     void Update(Product obj, int id);
     void Delete(Product obj);

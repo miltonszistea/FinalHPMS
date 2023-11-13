@@ -40,7 +40,7 @@
                 @Html.DisplayNameFor(model => model.Products[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Products[0].Category)
+                @Html.DisplayNameFor(model => model.Products[0].ProductCategory)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Products[0].WeightKg)
@@ -55,7 +55,7 @@
                 @Html.DisplayNameFor(model => model.Products[0].Stock)
             </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Products[0].CommunityId)
+                    @Html.DisplayNameFor(model => model.Products[0].ProductCommunities)
                 </th>
             <th></th>
         </tr>
@@ -70,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category)
+                @Html.DisplayFor(modelItem => item.ProductCategory)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.WeightKg)
@@ -85,7 +85,17 @@
                 @Html.DisplayFor(modelItem => item.Stock)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CommunityId)
+                        <span>
+                            @if (item.ProductCommunities != null)
+                            {
+                                <!--foreach (var com in item.ProductCommunities)
+                                {
+                                    <span>com.Community.Name</span>
+                                }-->
+                                @string.Join(", ", item.ProductCommunities.Select(c => c.Community.Name))
+                            }
+
+                        </span>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id"
@@ -94,9 +104,6 @@
                 class="btn btn-secondary btn-sm" role="button" aria-pressed="true"> Detalles</a>
                 <a asp-action="Delete" asp-route-id="@item.Id"
                 class="btn btn-danger btn-sm" role="button" aria-pressed="true">Eliminar</a>
-                @* <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> *@
             </td>
         </tr>
 }

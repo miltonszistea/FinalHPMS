@@ -26,7 +26,9 @@ public class TicketCreateViewModel{
     [Required]
     public PaymentMethod PaymentMethod { get; set; }
     [Display(Name="Productos")]
-    public required virtual List<Product>? Products {get;set;}
+    public List<ProductTicket>? Products { get; set; }
     [Display(Name="Comunidades")]
     public required List<Community> Communities{get; set;}
+
+    
 }

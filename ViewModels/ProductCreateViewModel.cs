@@ -22,4 +22,5 @@ public class ProductCreateViewModel{
     public int? CommunityId {get;set;}
     [Display(Name="Comunidad")]
     public List<SelectListItem>? Communities {get;set;}
+    public List<int>? CommunityIds {get; set;}
 }

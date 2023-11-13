@@ -17,7 +17,7 @@ public class TicketService : ITicketService
     }
     public void Create(Ticket ticketCreate)
     {
-      var TicketList = _context.Ticket
+      var TicketList = _context.Tickets
         .Select(c => new SelectListItem
         {
          Value = c.Id.ToString(),
@@ -30,13 +30,13 @@ public class TicketService : ITicketService
 
     public void Delete(Ticket ticket)
     {
-        _context.Ticket.Remove(ticket);
+        _context.Tickets.Remove(ticket);
         _context.SaveChanges();
     }
 
     public Ticket? GetDetails(int id)
     {
-        var ticket = _context.Ticket
+        var ticket = _context.Tickets
         .Include(x=>x.Client)
         .FirstOrDefault(m => m.Id == id);
 
@@ -45,7 +45,7 @@ public class TicketService : ITicketService
 
     public TicketViewModel GetAll()
     {
-        var query = from ticket in _context.Ticket select ticket;
+        var query = from ticket in _context.Tickets select ticket;
         var clients = query.Include(x=>x.Client);
         var model = new TicketViewModel
         {
@@ -55,7 +55,7 @@ public class TicketService : ITicketService
     }
     public TicketViewModel GetAll(string filter)
     {
-        var query = from ticket in _context.Ticket select ticket;
+        var query = from ticket in _context.Tickets select ticket;
 
         var communities = query.Include(x=>x.Client);
 
@@ -74,7 +74,7 @@ public class TicketService : ITicketService
 
 public Ticket? GetTicket(int id)
     {
-        var ticket = _context.Ticket
+        var ticket = _context.Tickets
         .Include(x=>x.Client)
         .FirstOrDefault(m => m.Id == id);
         return ticket;
