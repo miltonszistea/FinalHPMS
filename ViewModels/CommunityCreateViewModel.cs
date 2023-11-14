@@ -26,6 +26,7 @@ namespace FinalHPMS.ViewModels
         [Display(Name="Tipo de Comunidad")]
         public CommunityType CommunityType { get; set; }
 
+        public List<Product>? Products {get; set;}
         // public virtual List<SelectListItem>? Products { get; set; }
         // public List<int>? ProductsIds { get; set; }
         

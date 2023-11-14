@@ -17,9 +17,11 @@ namespace FinalHPMS.Controllers
     public class CommunityController : Controller
     {
         private ICommunityService _communityService;
-        public CommunityController(ICommunityService communityService)
+        private IProductService _productService;
+        public CommunityController(ICommunityService communityService, IProductService productService)
         {
             _communityService = communityService;
+            _productService = productService;
         }
 
         // GET: Community
@@ -45,6 +47,25 @@ namespace FinalHPMS.Controllers
             }
 
             return View(communityDetailViewModel);
+        }
+        public async Task<IActionResult> Products(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var communityDetailViewModel = _communityService.GetDetails(id);
+            var model = new CommunityCreateViewModel(){
+                Products = _productService.GetProductsByCommunityId(id),
+                Name = communityDetailViewModel.Name
+            };
+
+            if (communityDetailViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
         }
 
         // GET: Community/Create

@@ -82,9 +82,46 @@ public class ProductService : IProductService
         return product;
     }
 
-    public void Update(Product product, int id)
+    public void Update(Product product, List<int> CommunityIds)
     {
-        _context.Update(product);
+        var existingProduct =  _context.Products
+            .Include(p => p.ProductCommunities)
+            .FirstOrDefault(p => p.Id == product.Id);
+
+        if (existingProduct == null)
+        {
+            return;
+        }
+
+        existingProduct.Name = product.Name;
+        existingProduct.Price = product.Price;
+        existingProduct.ProductCategory = product.ProductCategory;
+        existingProduct.WeightKg = product.WeightKg;
+        existingProduct.ShippingAvailable = product.ShippingAvailable;
+        existingProduct.Dimension = product.Dimension;
+        existingProduct.Stock = product.Stock;
+        existingProduct.ProductCommunities = CommunityIds
+            .Select(communityId => new ProductCommunity
+            {
+                ProductId = product.Id,
+                CommunityId = communityId
+            })
+            .ToList();
+        //_context.Update(product);
         _context.SaveChanges();
+    }
+
+    
+    public List<Product> GetProductsByCommunityId(int id)
+    {   
+        var productsInCommunity = (
+            from product in _context.Products
+            join productCommunity in _context.ProductCommunity
+            on product.Id equals productCommunity.ProductId
+            where productCommunity.CommunityId == id
+            select product
+            ).ToList();
+
+        return productsInCommunity;
     }
 }

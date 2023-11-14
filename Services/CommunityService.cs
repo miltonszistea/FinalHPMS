@@ -72,7 +72,6 @@ public CommunityViewModel GetAll()
     return model;
 }
 
-
 public Community? GetCommunity(int id)
     {
         var community = _context.Communities
@@ -85,6 +84,5 @@ public Community? GetCommunity(int id)
     {      
         _context.Update(community);
         _context.SaveChanges();           
-    }
-
+    }   
 }

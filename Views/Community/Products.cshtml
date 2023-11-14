@@ -1,0 +1,85 @@
+@using FinalHPMS.ViewModels;
+@model CommunityCreateViewModel
+@{
+    ViewData["Title"] = "Productos por comunidad";
+}
+<head>
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body class="green-bg">
+    <h1>Productos del sucursal @Model.Name</h1>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            Precio
+                        </th>
+                        <th>
+                            Categoria
+                        </th>
+                        <th>
+                            Peso
+                        </th>
+                        <th>
+                            Available
+                        </th>
+                        <th>
+                            Dimension
+                        </th>
+                        <th>
+                            Stock
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        if (Model.Products != null)
+                        {
+                            foreach (var item in Model.Products)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Price)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductCategory)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.WeightKg)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ShippingAvailable)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Dimension)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Stock)
+                                    </td>
+
+                                </tr>
+                            }
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a asp-action="Index">Volver al Listado de Tickets</a>
+</body>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

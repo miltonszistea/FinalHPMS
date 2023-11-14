@@ -99,26 +99,69 @@ namespace FinalHPMS.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            var communityList = _communityService.GetAll();
+             ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
+            .Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }), "Value", "Text");
+            List<int> communityId = product.ProductCommunities.Select(x=>x.CommunityId).ToList();
+            var model = new ProductCreateViewModel(){
+                Id = product.Id,
+                Name = product.Name,
+                Category = product.ProductCategory,
+                WeightKg = product.WeightKg,
+                Dimension = product.Dimension,
+                ShippingAvailable = product.ShippingAvailable,
+                Stock = product.Stock,
+                Price = product.Price,
+                CommunityIds = communityId
+            };
+
+            return View(model);
         }
 
         // POST: Product/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public IActionResult Edit(int id, [Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Product product)
+        public IActionResult Edit(ProductCreateViewModel productModel)
         {
-            if (id != product.Id)
+            if (productModel.Id == 0)
             {
                 return NotFound();
             }
+            if (productModel.CommunityIds == null)
+                {
+                    var communityList = _communityService.GetAll();
+                    ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
+                    .Select(c => new SelectListItem
+                    {
+                        Text = c.Name,
+                        Value = c.Id.ToString()
+                    }), "Value", "Text");
+                    ModelState.AddModelError("Total", "El total no puede ser cero. Agregue productos válidos.");
+                }
+
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
-                _productService.Update(product, id);
+                var product = new Product(){
+                Id = productModel.Id,
+                Name = productModel.Name,
+                ProductCategory = productModel.Category,
+                WeightKg = productModel.WeightKg,
+                Dimension = productModel.Dimension,
+                ShippingAvailable = productModel.ShippingAvailable,
+                Stock = productModel.Stock,
+                Price = productModel.Price
+                };
+                var communityIds = productModel.CommunityIds;
+                _productService.Update(product, communityIds);
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(productModel);
         }
 
         // GET: Product/Delete/5

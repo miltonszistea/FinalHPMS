@@ -5,10 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 public class ProductCreateViewModel{
     
+    public required int Id {get; set;}
+
     [Display(Name="Nombre")]
     public required string Name { get; set; }
     [Display(Name="Precio")]
-    public int Price { get; set; }
+    public double Price { get; set; }
     [Display(Name="Categoría")]
     public ProductCategory Category { get; set; }
     [Display(Name="Peso")]
