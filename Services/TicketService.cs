@@ -1,8 +1,6 @@
 using FinalHPMS.Data;
 using FinalHPMS.Models;
 using FinalHPMS.ViewModels;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,16 +13,35 @@ public class TicketService : ITicketService
     {
         _context = context;
     }
-    public void Create(Ticket ticketCreate)
+    public void Create(Ticket ticketCreate, List<Product> products)
     {
-      var TicketList = _context.Tickets
-        .Select(c => new SelectListItem
-        {
-         Value = c.Id.ToString(),
-         Text = c.Client.ToString()
-        }).ToList();
-
         _context.Add(ticketCreate);
+        _context.SaveChanges();
+
+        foreach (var product in products)
+        {
+
+            var existingProduct = _context.Products
+                .FirstOrDefault(p => p.Id == product.Id);
+
+            if (existingProduct == null)
+            {
+                return;
+            }
+
+            if(existingProduct.Stock >= product.Quantity)
+            {
+                existingProduct.Stock -= product.Quantity;
+                var productTicket = new ProductTicket
+                {
+                    ProductId = product.Id,
+                    TicketId = ticketCreate.Id,
+                };
+                _context.Add(productTicket);
+            }
+
+        }
+
         _context.SaveChanges();
     }
 
@@ -37,7 +54,7 @@ public class TicketService : ITicketService
     public Ticket? GetDetails(int id)
     {
         var ticket = _context.Tickets
-        .Include(x=>x.Client)
+        .Include(x => x.Client)
         .FirstOrDefault(m => m.Id == id);
 
         return ticket;
@@ -46,7 +63,7 @@ public class TicketService : ITicketService
     public TicketViewModel GetAll()
     {
         var query = from ticket in _context.Tickets select ticket;
-        var clients = query.Include(x=>x.Client);
+        var clients = query.Include(x => x.Client);
         var model = new TicketViewModel
         {
             Tickets = clients.ToList()
@@ -55,34 +72,56 @@ public class TicketService : ITicketService
     }
     public TicketViewModel GetAll(string filter)
     {
-        var query = from ticket in _context.Tickets select ticket;
+        //var query = from ticket in _context.Tickets select ticket;
 
-        var communities = query.Include(x=>x.Client);
+        //var communities = query.Include(x => x.Client);
 
-        if(!string.IsNullOrEmpty(filter))
-            {
-                filter = filter.ToLower();
-                query = query.Where(x => x.Client.Name.ToLower().Contains(filter) ||
-                             x.Id.ToString().Contains(filter));
-                
-            }
+        //if (!string.IsNullOrEmpty(filter))
+        //{
+        //    filter = filter.ToLower();
+        //    query = query.Where(x => x.Client.Name.ToLower().Contains(filter) ||
+        //                 x.Id.ToString().Contains(filter));
 
-            var model = new TicketViewModel();
-            model.Tickets = query.ToList();
-            return model;
+        //}
+
+        IQueryable<Ticket> query = _context.Tickets
+       .Include(p => p.ProductTickets)
+       .Include(c => c.Client)
+       .Include(c => c.Community);
+
+        if (!string.IsNullOrEmpty(filter))
+        {
+            query = query
+                .Where(x => x.Description != null && x.Description.Contains(filter)
+            //||   x.Community.Contains(filter)
+            );
+        }        
+
+        var model = new TicketViewModel();
+        model.Tickets = query.ToList();
+        return model;
     }
 
-public Ticket? GetTicket(int id)
+    public Ticket? GetTicket(int id)
     {
         var ticket = _context.Tickets
-        .Include(x=>x.Client)
+        .Include(x => x.Community)
+        .Include(c => c.Client)
+        .Include(pt => pt.ProductTickets)
         .FirstOrDefault(m => m.Id == id);
         return ticket;
     }
 
     public void Update(Ticket ticket, int id)
-    {      
+    {
         _context.Update(ticket);
-        _context.SaveChanges();           
+        _context.SaveChanges();
+    }
+
+        public List<Ticket> GetTicketsByCommunityId(int id)
+    {   
+        var ticketsDeComunidad = _context.Tickets.Where(ticket => ticket.CommunityId == id).ToList();
+
+        return ticketsDeComunidad;
     }
 }

@@ -58,19 +58,19 @@ public ClientViewModel GetAll(string filter)
     {
         var query = from client in _context.Clients select client;
 
-        var clients = query.Include(x=>x.Tickets);
+        var clients = query.Include(x => x.Tickets);
 
-        if(!string.IsNullOrEmpty(filter))
-            {
-                query = query.Where(x => x.Name.ToLower().Contains(filter) ||
-                                        x.Apellido.ToLower().Contains(filter) ||
-                                        x.Mail.ToLower().Contains(filter));   
-                
-            }
+        if (!string.IsNullOrEmpty(filter))
+        {
+            query = query.Where(x => x.Name.ToLower().Contains(filter) ||
+                                    x.Apellido.ToLower().Contains(filter) ||
+                                    x.Mail.ToLower().Contains(filter));
 
-            var model = new ClientViewModel();
-            model.Clients = query.ToList();
-            return model;
+        }
+
+        var model = new ClientViewModel();
+        model.Clients = query.ToList();
+        return model;
     }
 
 public Client? GetClient(int id)

@@ -17,14 +17,10 @@ public class ProductService : IProductService
     }
     public void Create(Product productCreate, List<int> CommunityIds)
     {
-
-        //var CommunitiesList = _context.Communities
-        //  .Select(c => new SelectListItem
-        //  {
-        //   Value = c.Id.ToString(),
-        //   Text = c.Name
-        //  }).ToListAsync();
-
+        if(productCreate.Stock < 1)
+        {
+            return;
+        }
         _context.Add(productCreate);
         _context.SaveChanges();
         foreach (var CommunityId in CommunityIds)
@@ -84,6 +80,10 @@ public class ProductService : IProductService
 
     public void Update(Product product, List<int> CommunityIds)
     {
+        if(product.Stock < 1)
+        {
+            return;
+        }
         var existingProduct =  _context.Products
             .Include(p => p.ProductCommunities)
             .FirstOrDefault(p => p.Id == product.Id);
@@ -124,4 +124,18 @@ public class ProductService : IProductService
 
         return productsInCommunity;
     }
+
+    public  List<Product> GetProductsByTicketId(int ticketId)
+ {
+     var productsInTicket =  (
+         from product in _context.Products
+         join productTicket in _context.ProductTicket
+         on product.Id equals productTicket.ProductId
+         where productTicket.TicketId == ticketId
+         select product
+         ).ToList();
+
+
+     return productsInTicket;
+ }
 }

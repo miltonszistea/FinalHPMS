@@ -18,10 +18,13 @@ namespace FinalHPMS.Controllers
     {
         private ICommunityService _communityService;
         private IProductService _productService;
-        public CommunityController(ICommunityService communityService, IProductService productService)
+
+        private ITicketService _ticketService;
+        public CommunityController(ICommunityService communityService, IProductService productService, ITicketService ticketService)
         {
             _communityService = communityService;
             _productService = productService;
+            _ticketService = ticketService;
         }
 
         // GET: Community
@@ -67,6 +70,8 @@ namespace FinalHPMS.Controllers
 
             return View(model);
         }
+
+
 
         // GET: Community/Create
         public IActionResult Create()
@@ -172,5 +177,29 @@ namespace FinalHPMS.Controllers
         // {
         //   return _communityService.GetCommunity(id) != null;
         // }
+
+
+
+        public async Task<IActionResult> Tickets(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var communityDetailViewModel = _communityService.GetDetails(id);
+            var model = new CommunityCreateViewModel(){
+                Products = _productService.GetProductsByCommunityId(id),
+                Name = communityDetailViewModel.Name,
+                Tickets = _ticketService.GetTicketsByCommunityId(id)
+                
+            };
+
+            if (communityDetailViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
     }
 }

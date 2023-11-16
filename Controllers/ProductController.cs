@@ -66,6 +66,18 @@ namespace FinalHPMS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Product product, ProductCreateViewModel productCreateViewModel)
         {
+            if(product.Stock < 1)
+            {
+                                var communityList = _communityService.GetAll();
+                    ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
+                    .Select(c => new SelectListItem
+                    {
+                        Text = c.Name,
+                        Value = c.Id.ToString()
+                    }), "Value", "Text");
+                return View();
+            }
+            
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {

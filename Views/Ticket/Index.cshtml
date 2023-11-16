@@ -5,18 +5,18 @@
     ViewData["Title"] = "Index";
 }
 <body class="green-bg">
-<h1>Historial de Tickets</h1>
+    <h1>Historial de Tickets</h1>
     <br>
-  
-<div class="row">
-    <form method="get" asp-action="Index" asp-controller="Ticket">
-        <div class = "col-6 form-group">
-        <input asp-for="Filter" class="form-control" type="search" placeholder="Busque id del ticket o nombre del cliente" aria-label="Search">
+
+    <div class="row">
+        <form method="get" asp-action="Index" asp-controller="Ticket">
+            <div class="col-6 form-group">
+                <input asp-for="Filter" class="form-control" type="search" placeholder="Busque id del ticket o nombre del cliente" aria-label="Search">
                 <br>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtre su ticket</button>
-        </div>
-    </form>
-</div>
+            </div>
+        </form>
+    </div>
     <br>
     <p>
         <a asp-action="Create"
@@ -25,61 +25,65 @@
         </a>
     </p>
     <br>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tickets[0].ClientId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tickets[0].DateAndHour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tickets[0].Community)
-            </th>
-            <th>
-                <!--Html.DisplayNameFor(model => model.Tickets[0].Products)-->
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tickets[0].Total)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tickets[0].PaymentMethod)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Tickets) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAndHour)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Community)
-            </td>
-            <td>
-                <!--Html.DisplayFor(modelItem => item.Products)-->
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentMethod)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id"
-                class="btn btn-info btn-sm" role="button" aria-pressed="true"> Editar</a>
-                <a asp-action="Details" asp-route-id="@item.Id"
-                class="btn btn-secondary btn-sm" role="button" aria-pressed="true"> Detalles</a>
-                <a asp-action="Delete" asp-route-id="@item.Id"
-                class="btn btn-danger btn-sm" role="button" aria-pressed="true">Eliminar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</body>>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    N° Ticket
+                </th>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets[0].DateAndHour)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets[0].Community)
+                </th>
+                <th>
+                    <!--Html.DisplayNameFor(model => model.Tickets[0].Products)-->
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets[0].Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tickets[0].PaymentMethod)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Tickets)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Client.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateAndHour)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Community.Name)
+                    </td>
+                    <td>
+                        <!--Html.DisplayFor(modelItem => item.Products)-->
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentMethod)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info btn-sm" role="button" aria-pressed="true"> Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm" role="button" aria-pressed="true"> Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" role="button" aria-pressed="true">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>

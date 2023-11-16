@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using FinalHPMS.Data;
 using FinalHPMS.Models;
-using FinalHPMS.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using FinalHPMS.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FinalHPMS.Controllers
 {
@@ -18,10 +11,14 @@ namespace FinalHPMS.Controllers
     {
         private ITicketService _ticketService;
         private IClientService _clientService;
-        public TicketController(ITicketService ticketService, IClientService clientService)
+        private ICommunityService _communityService;
+        private IProductService _productService;
+        public TicketController(ITicketService ticketService, IClientService clientService, ICommunityService communityService, IProductService productService)
         {
             _ticketService = ticketService;
             _clientService = clientService;
+            _communityService = communityService;
+            _productService = productService;
 
         }
 
@@ -33,13 +30,13 @@ namespace FinalHPMS.Controllers
         }
 
         // GET: Ticket/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
-            var ticketDetailViewModel = _ticketService.GetDetails(id.Value);
+            var ticketDetailViewModel = _ticketService.GetTicket(id);
 
             if (ticketDetailViewModel == null)
             {
@@ -53,95 +50,141 @@ namespace FinalHPMS.Controllers
         [Authorize(Roles = "Administrator,Employee")]
         public IActionResult Create()
         {
-            var clientList = _ticketService.GetAll();
-            ViewData["Client"] = new SelectList(clientList.Tickets.ToList()
-            .Select(c => new SelectListItem
+            var model = new TicketCreateViewModel()
             {
-                Text = c.Client.Name,
-                Value = c.Id.ToString()
-            }), "Value", "Text");
-            return View();
+                DateAndHour = DateTime.Now,
+                Communities = _communityService.GetAll().Communities,
+                Clients = _clientService.GetAll(string.Empty).Clients,
+            };
+            return View(model);
         }
 
         // POST: Ticket/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Employee")]
-        public IActionResult Create(Ticket ticket, TicketCreateViewModel ticketCreateViewModel)
+        public IActionResult Create(TicketCreateViewModel model)
         {
-            //ModelState.Remove("Communities");
+
             if (ModelState.IsValid)
-            {
-                var model = new Ticket()
+            {       
+                if (model.Total == 0)
                 {
-                    Id = ticketCreateViewModel.Id,
-                    //Client = ticketCreateViewModel.Clients,
-                    PaymentMethod = ticketCreateViewModel.PaymentMethod,
-                    DateAndHour = ticketCreateViewModel.DateAndHour,
-                    Total = ticketCreateViewModel.Total,
-                    ProductTickets = ticketCreateViewModel.Products,
-                    //Communities = ticketCreateViewModel.Communities,
+                    model.Clients = _clientService.GetAll(string.Empty).Clients;
+                    model.Communities = _communityService.GetAll(string.Empty).Communities;
+                    ModelState.AddModelError("Total", "El total no puede ser cero. Agregue productos válidos.");
+                    return View(model);
+                } 
+  
+                var selectedProducts = JsonConvert.DeserializeObject<List<Product>>(model.SelectedProducts ?? string.Empty);
+                var existingProducts = _productService.GetAll(string.Empty);
+                foreach (var product in selectedProducts)
+                {
+                    foreach(var existingProduct in existingProducts.Products)
+                    {
+                        if(existingProduct.Id == product.Id && existingProduct.Stock < product.Quantity && product.Quantity >= 1)
+                        {
+                            model.Clients = _clientService.GetAll(string.Empty).Clients;
+                            model.Communities = _communityService.GetAll(string.Empty).Communities;
+                            ModelState.AddModelError("Total", $"Por favor, ingresa otra cantidad deseada. {existingProduct.Name} posee {existingProduct.Stock} existencias. Estás ingresando {product.Quantity}.");
+                            return View(model);
+                        }
+                    }
+                }
+
+
+                var ticket = new Ticket()
+                {
+                    Id = model.Id,
+                    PaymentMethod = model.PaymentMethod,
+                    DateAndHour = model.DateAndHour,
+                    Total = model.Total,
+                    ProductTickets = model.ProductTickets,
+                    CommunityId = model.CommunityId,
+                    ClientId = model.ClientId,
                 };
-                _ticketService.Create(model);
+
+                
+
+
+                _ticketService.Create(ticket, selectedProducts ?? new List<Product>());
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticketCreateViewModel);
+            return View(model);
 
         }
 
 
         // GET: Ticket/Edit/5
         [Authorize(Roles = "Administrator")]
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            var product = _ticketService.GetDetails(id.Value);
-            if (product == null)
+            var ticket = _ticketService.GetTicket(id);
+            if (ticket == null)
             {
                 return NotFound();
             }
-            return View(product);
+
+            var model = new TicketCreateViewModel()
+            {
+                Id = ticket.Id,
+                DateAndHour = ticket.DateAndHour,
+                Total = ticket.Total,
+            };
+            return View(model);
         }
 
         // POST: Ticket/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public IActionResult Edit(int id, [Bind("Id,Name,Price,Category,WeightKg,ShippingAvailable,Dimension,Stock")] Ticket ticket)
+        public IActionResult Edit(TicketCreateViewModel model)
         {
-            if (id != ticket.Id)
+            if (model.Id == 0)
             {
                 return NotFound();
             }
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
-                _ticketService.Update(ticket, id);
+                var ticket = new Ticket()
+                {
+                    Id = model.Id,
+                    DateAndHour = DateTime.Now,
+                    Total = model.Total,
+                    ProductTickets = new List<ProductTicket> { }
+
+                };
+                var list = new List<int> { 0 };
+
+                _ticketService.Update(ticket, 1);
                 return RedirectToAction(nameof(Index));
             }
-            return View(ticket);
+            return View(model);
         }
 
         // GET: Ticket/Delete/5
         [Authorize(Roles = "Administrator,Supervisor")]
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            var product = _ticketService.GetDetails(id.Value);
-            if (product == null)
+            var ticket = _ticketService.GetDetails(id);
+            if (ticket == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(ticket);
         }
 
         // POST: Product/Delete/5
@@ -158,9 +201,43 @@ namespace FinalHPMS.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // private bool TickettExists(int id)
-        // {
-        //   return _ticketService.GetTicket(id) != null;
-        // }
+        public IActionResult Products(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var ticket = _ticketService.GetTicket(id);
+            var products = _productService.GetProductsByTicketId(id);
+
+            if (products == null || ticket == null)
+            {
+                return NotFound();
+            }
+
+            var model = new TicketCreateViewModel()
+            {
+                Id = ticket.Id,
+                DateAndHour = ticket.DateAndHour,
+                Total = ticket.Total,
+                Products = products
+            };
+
+
+            return View(model);
+        }
+
+
+
+        //[Authorize(Roles = "Administrator,Employee")]
+        public IActionResult GetProductsByCommunityId(int id)
+        {
+            var products = _productService.GetProductsByCommunityId(id);
+
+            return Json(products);
+
+        }
+
     }
+
 }

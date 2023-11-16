@@ -1,5 +1,5 @@
-@model FinalHPMS.Models.Ticket
-
+@using FinalHPMS.ViewModels;
+@model TicketCreateViewModel;
 @{
     ViewData["Title"] = "Edit";
 }
@@ -7,58 +7,50 @@
     <link rel="stylesheet" href="wwwroot\css\site.css">
 </head>
 <body class="green-bg">
-<h1>Editar Ticket</h1>
+    <h1>Editar Ticket</h1>
 
-<h4>Modifique los datos del ticket</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+    <h4>Modifique los datos del ticket</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input type="hidden" asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="DateAndHour" class="control-label"></label>
-                <input asp-for="DateAndHour" class="form-control" />
-                <span asp-validation-for="DateAndHour" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentMethod" class="control-label"></label>
-                <input asp-for="PaymentMethod" class="form-control" />
-                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Client" class="control-label"></label>
-                <input asp-for="Client" class="form-control" />
-                <span asp-validation-for="Client" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductTickets" class="control-label"></label>
-                <input asp-for="ProductTickets" class="form-control" />
-                <span asp-validation-for="ProductTickets" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="DateAndHour" class="control-label"></label>
+                    <input readonly asp-for="DateAndHour" class="form-control" />
+                    <span asp-validation-for="DateAndHour" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PaymentMethod" class="control-label"></label>
+                    <select asp-for="PaymentMethod" asp-items="Html.GetEnumSelectList<PaymentMethod>()" class="form-control">
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label asp-for="Total" class="control-label"></label>
+                    <input readonly asp-for="Total" class="form-control" />
+                    <span asp-validation-for="Total" class="text-danger"></span>
+                </div>
+            </form>
+                <div class="form-group">
+                   <a asp-action="Index" class="btn-success"> Guardar </a>
+                </div>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Volver al Listado</a>
-</div>
+    <div>
+        <a asp-action="Index">Volver al Listado</a>
+    </div>
 </body>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

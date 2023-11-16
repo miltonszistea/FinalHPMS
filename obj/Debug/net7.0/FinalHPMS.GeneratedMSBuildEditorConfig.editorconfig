@@ -64,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbXVuaXR5XFByb2R1Y3RzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/mszpryngier/OneDrive - RANSecurity/Escritorio/HerrProg/FinalHPMS/Views/Community/Tickets.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbXVuaXR5XFRpY2tldHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/mszpryngier/OneDrive - RANSecurity/Escritorio/HerrProg/FinalHPMS/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -142,6 +146,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/mszpryngier/OneDrive - RANSecurity/Escritorio/HerrProg/FinalHPMS/Views/Ticket/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mszpryngier/OneDrive - RANSecurity/Escritorio/HerrProg/FinalHPMS/Views/Ticket/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0XFByb2R1Y3RzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/mszpryngier/OneDrive - RANSecurity/Escritorio/HerrProg/FinalHPMS/Views/Users/Delete.cshtml]

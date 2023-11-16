@@ -1,0 +1,68 @@
+@using FinalHPMS.ViewModels;
+@model TicketCreateViewModel;
+@{
+    ViewData["Title"] = "Products";
+}
+<head>
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body class="green-bg">
+
+    <h2 class="mb-0">Products de ticket N°: @Model.Id</h2>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Categoria
+                </th>
+                <th>
+                    Peso
+                </th>
+                <th>
+                    ¿Envió?
+                </th>
+                <th>
+                    Dimension
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Products != null)
+                {
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductCategory)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WeightKg)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ShippingAvailable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Dimension)
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+
+        </tbody>
+    </table>
+</body>

@@ -12,4 +12,5 @@ public interface IProductService
     Product? GetDetails(int id);
     Product? GetProduct(int id);
     List<Product> GetProductsByCommunityId(int id);
+    List<Product> GetProductsByTicketId(int id);
 }
