@@ -17,4 +17,5 @@ public class ProductDetailViewModel{
     public int Stock { get; set; }
     [Display(Name="Comunidades")]
     public  List<Community> Communities {get;set;}
+    public List<Ticket> Tickets {get; set;}
 }

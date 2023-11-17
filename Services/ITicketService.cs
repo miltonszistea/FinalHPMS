@@ -14,4 +14,6 @@ public interface ITicketService
     Ticket? GetTicket(int id);
     List<Ticket> GetTicketsByCommunityId(int id);
 
+    List<Ticket> GetTicketsByProductId(int id);
+
 }

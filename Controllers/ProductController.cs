@@ -18,10 +18,13 @@ namespace FinalHPMS.Controllers
     {
         private IProductService _productService;
         private ICommunityService _communityService;
-        public ProductController(IProductService productService, ICommunityService communityService)
+       
+        private ITicketService _ticketService;
+        public ProductController(ICommunityService communityService, IProductService productService, ITicketService ticketService)
         {
-            _productService = productService;
             _communityService = communityService;
+            _productService = productService;
+            _ticketService = ticketService;
         }
 
         // GET: Product
@@ -68,7 +71,7 @@ namespace FinalHPMS.Controllers
         {
             if(product.Stock < 1)
             {
-                                var communityList = _communityService.GetAll();
+                    var communityList = _communityService.GetAll();
                     ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
                     .Select(c => new SelectListItem
                     {
@@ -208,9 +211,28 @@ namespace FinalHPMS.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // private bool ProductExists(int id)
-        // {
-        //   return _productService.GetDProduct(id) != null;
-        // }
+        public IActionResult Tickets(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var productTicketViewModel = _productService.GetDetails(id);
+
+            if (productTicketViewModel == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ProductTicketViewModel
+            {
+                Name = productTicketViewModel.Name,
+                Tickets = _ticketService.GetTicketsByProductId(id)
+            };
+
+            return View(model);
+        }
+
     }
 }

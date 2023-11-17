@@ -1,0 +1,74 @@
+@using FinalHPMS.ViewModels;
+@model ProductTicketViewModel
+@{
+    ViewData["Title"] = "Ventas por Producto";
+}
+<head>
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body class="green-bg">
+    <h1>Ventas de @Model.Name</h1>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Cliente
+                        </th>
+                        <th>
+                            Hora y Fecha
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                        <th>
+                            Método de Pago
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        if (Model.Tickets != null)
+                        {
+                            foreach (var item in Model.Tickets)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Client)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateAndHour)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Total)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaymentMethod)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a asp-action="Index">Volver a Productos</a>
+</body>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

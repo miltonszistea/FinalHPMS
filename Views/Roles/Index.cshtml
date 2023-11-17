@@ -11,13 +11,6 @@
 <br>
 
 <div class="row">
-    @* <form method="get" asp-action="Index" asp-controller="Roles">
-        <div class = "col-6 form-group">
-        <input asp-for="Filter" class="form-control" type="search" placeholder="Busque por 2 campos: nombre o precio" aria-label="Search">
-                <br>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtre su producto</button>
-        </div>
-    </form> *@
 </div>
     <p>
         <a asp-action="Create"
@@ -29,7 +22,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model[0].Name)
+                Rol
             </th>
             <th>
                 @Html.DisplayNameFor(model => model[0].Id)

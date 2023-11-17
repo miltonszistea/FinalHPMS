@@ -82,7 +82,7 @@ namespace FinalHPMS.Controllers
                 {
                     foreach(var existingProduct in existingProducts.Products)
                     {
-                        if(existingProduct.Id == product.Id && existingProduct.Stock < product.Quantity && product.Quantity >= 1)
+                        if(existingProduct.Id == product.Id && existingProduct.Stock < product.Quantity && product.Quantity < 1)
                         {
                             model.Clients = _clientService.GetAll(string.Empty).Clients;
                             model.Communities = _communityService.GetAll(string.Empty).Communities;

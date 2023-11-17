@@ -72,18 +72,6 @@ public class TicketService : ITicketService
     }
     public TicketViewModel GetAll(string filter)
     {
-        //var query = from ticket in _context.Tickets select ticket;
-
-        //var communities = query.Include(x => x.Client);
-
-        //if (!string.IsNullOrEmpty(filter))
-        //{
-        //    filter = filter.ToLower();
-        //    query = query.Where(x => x.Client.Name.ToLower().Contains(filter) ||
-        //                 x.Id.ToString().Contains(filter));
-
-        //}
-
         IQueryable<Ticket> query = _context.Tickets
        .Include(p => p.ProductTickets)
        .Include(c => c.Client)
@@ -124,4 +112,16 @@ public class TicketService : ITicketService
 
         return ticketsDeComunidad;
     }
+
+        public List<Ticket> GetTicketsByProductId(int productId)
+        {
+            var tickets = (
+                from productTicket in _context.ProductTicket
+                join ticket in _context.Tickets on productTicket.TicketId equals ticket.Id
+                where productTicket.ProductId == productId
+                select ticket
+            ).ToList();
+
+            return tickets;
+        }
 }

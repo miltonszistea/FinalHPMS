@@ -18,12 +18,13 @@
         </form>
     </div>
     <br>
-    <p>
-        <a asp-action="Create"
-           class="btn btn-warning" role="button" aria-pressed="true">
-            Nueva Venta
-        </a>
-    </p>
+        @if (User.Identity.IsAuthenticated && (User.IsInRole("Employee") || User.IsInRole("Administrator")))
+        {
+            <p>
+                <a asp-action="Create" class="btn btn-warning" role="button" aria-pressed="true"> Nueva Venta</a>
+            </p>
+        }
+
     <br>
     <table class="table">
         <thead>

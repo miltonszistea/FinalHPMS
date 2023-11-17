@@ -26,6 +26,7 @@ namespace FinalHPMS.ViewModels
         [Display(Name="Tipo de Comunidad")]
         public CommunityType CommunityType { get; set; }
 
+        [Display(Name="Productos")]
         public List<Product>? Products {get; set;}
 
         public List<Ticket>? Tickets {get; set;}
