@@ -41,9 +41,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Clients[0].Mail)
             </th>
-            @* <th>
-                @Html.DisplayNameFor(model => model.Clients[0].TicketId)
-            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Clients[0].Tickets)
             </th>
@@ -69,7 +66,7 @@
                 @Html.DisplayFor(modelItem => item.Mail)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tickets)
+                <a asp-action="Tickets" asp-route-id="@item.Id" class="btn btn-secondary btn-sm" role="button" aria-pressed="true"> Tickets de @item.Name @item.Apellido</a>
             </td>
                 <td>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))

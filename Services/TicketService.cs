@@ -115,13 +115,24 @@ public class TicketService : ITicketService
 
         public List<Ticket> GetTicketsByProductId(int productId)
         {
-            var tickets = (
+            var ticketsDeProducto = (
                 from productTicket in _context.ProductTicket
                 join ticket in _context.Tickets on productTicket.TicketId equals ticket.Id
                 where productTicket.ProductId == productId
                 select ticket
             ).ToList();
 
-            return tickets;
+            return ticketsDeProducto;
+        }
+
+        public List<Ticket> GetTicketsByClientId(int clientId)
+        {
+            var ticketsDeCliente = (
+                from ticket in _context.Tickets
+                where ticket.ClientId == clientId
+                select ticket
+            ).ToList();
+
+            return ticketsDeCliente;
         }
 }

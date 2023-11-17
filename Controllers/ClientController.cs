@@ -17,9 +17,13 @@ namespace FinalHPMS.Controllers
     public class ClientController : Controller
     {
         private IClientService _clientService;
-        public ClientController(IClientService clientService)
+        private IProductService _productService;
+        private ITicketService _ticketService;
+        public ClientController(IClientService clientService, IProductService productService, ITicketService ticketService)
         {
             _clientService = clientService;
+            _productService = productService;
+            _ticketService = ticketService;
         }
 
         // GET: Client
@@ -143,9 +147,27 @@ namespace FinalHPMS.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // private bool ClientExists(int id)
-        // {
-        //   return _pclientService.GetClient(id) != null;
-        // }
+        public IActionResult Tickets(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var clientTicketViewModel = _clientService.GetDetails(id);
+
+            if (clientTicketViewModel == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ClientTicketViewModel
+            {
+                Name = clientTicketViewModel.Name,
+                Tickets = _ticketService.GetTicketsByClientId(id)
+            };
+
+            return View(model);
+        }
     }
 }

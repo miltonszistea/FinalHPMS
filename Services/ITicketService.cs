@@ -16,4 +16,6 @@ public interface ITicketService
 
     List<Ticket> GetTicketsByProductId(int id);
 
+    List<Ticket> GetTicketsByClientId(int id);
+
 }
