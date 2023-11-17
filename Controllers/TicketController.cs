@@ -68,11 +68,11 @@ namespace FinalHPMS.Controllers
 
             if (ModelState.IsValid)
             {       
-                if (model.Total == 0)
+                if (model.Total == 0 || model.Total > 999999999)
                 {
                     model.Clients = _clientService.GetAll(string.Empty).Clients;
                     model.Communities = _communityService.GetAll(string.Empty).Communities;
-                    ModelState.AddModelError("Total", "El total no puede ser cero. Agregue productos válidos.");
+                    ModelState.AddModelError("Total", "El total no puede ser cero o mayor a $999,999,999. Agregue productos válidos o quite hasta el máximo de compra.");
                     return View(model);
                 } 
   
