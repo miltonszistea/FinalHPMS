@@ -102,17 +102,14 @@
 
                             $("#tbProducts").empty();
 
-
                             $.each(data, function (index, product) {
                                 var newRow = $("<tr>");
 
                                 var checkboxCell = $("<td>").append('<input type="checkbox" name="selectedProducts" value="' + product.id + '" onchange="handleCheckboxChange();" /> ');
                                 newRow.append(checkboxCell);
 
-
                                 var nameCell = $("<td>").text(product.name);
                                 newRow.append(nameCell);
-
 
                                 var priceCell = $("<td>").text(product.price);
                                 newRow.append(priceCell);
@@ -120,15 +117,11 @@
                                 var stockCell = $("<td>").text(product.stock);
                                 newRow.append(stockCell);
 
-
                                 var quantityCell = $("<td>").append('<input type="number" name="stockQuantities" class="form-control" onkeypress="handleCheckboxChange();" />');
                                 newRow.append(quantityCell);
 
-
                                 $("#tbProducts").append(newRow);
                             });
-
-
                         },
                         error: function (xhr, status, error) {
                             console.error(status, error);
@@ -139,13 +132,46 @@
 
                 $('#PaymentMethod').change(function () {
                     handleCheckboxChange();
-                });           
+                });
 
+                $('#tbProducts').on('change', 'input[name="stockQuantities"]', function () {
+                    // Maneja el cambio de la cantidad en tiempo real
+                    var quantityInput = $(this);
+                    var row = quantityInput.closest('tr');
+                    var stock = parseFloat(row.find('td:eq(2)').text());
+                    var cantidad = parseFloat(quantityInput.val());
+
+                    // Realiza las validaciones de cantidad
+                    if (isNaN(cantidad) || cantidad < 0 || cantidad > stock) {
+                        alert('La cantidad ingresada no es válida.');
+                        // Puedes realizar otras acciones aquí, como desactivar el checkbox o cambiar el color del campo
+                        quantityInput.val(0);  // O establece la cantidad a un valor válido
+                    }
+
+                    // Llama a la función para recalcular el total
+                    handleCheckboxChange();
+                });
+
+                // Validación de Precio
+                $('#tbProducts').on('change', 'input[name="price"]', function () {
+                    // Maneja el cambio del precio en tiempo real
+                    var priceInput = $(this);
+                    var row = priceInput.closest('tr');
+                    var price = parseFloat(priceInput.val());
+
+                    // Realiza las validaciones de precio
+                    if (isNaN(price) || price < 0 || price > 999999999) {
+                        alert('El precio ingresado no es válido.');
+                        // Puedes realizar otras acciones aquí, como desactivar el checkbox o cambiar el color del campo
+                        priceInput.val(0);  // O establece el precio a un valor válido
+                    }
+
+                    // Llama a la función para recalcular el total
+                    handleCheckboxChange();
+                });
             });
 
-
-            function handleCheckboxChange() {          
-
+            function handleCheckboxChange() {
                 var selectedProducts = [];
 
                 $('input[name="selectedProducts"]:checked').each(function () {
@@ -188,9 +214,8 @@
                 if (isNaN(total)) {
                     total = 0;
                 }
-             
+
                 $('#Total').val(total.toFixed(2));
-          
             }
         </script>
     }

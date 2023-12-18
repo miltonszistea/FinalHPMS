@@ -78,6 +78,9 @@ namespace FinalHPMS.Controllers
                         Text = c.Name,
                         Value = c.Id.ToString()
                     }), "Value", "Text");
+
+                ModelState.AddModelError("Stock", "La cantidad debe ser mayor o igual a 1");
+
                 return View();
             }
             
@@ -110,10 +113,12 @@ namespace FinalHPMS.Controllers
             }
 
             var product = _productService.GetDetails(id.Value);
+
             if (product == null)
             {
                 return NotFound();
             }
+
             var communityList = _communityService.GetAll();
              ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
             .Select(c => new SelectListItem
@@ -121,7 +126,9 @@ namespace FinalHPMS.Controllers
                 Text = c.Name,
                 Value = c.Id.ToString()
             }), "Value", "Text");
+
             List<int> communityId = product.ProductCommunities.Select(x=>x.CommunityId).ToList();
+
             var model = new ProductCreateViewModel(){
                 Id = product.Id,
                 Name = product.Name,
@@ -137,7 +144,6 @@ namespace FinalHPMS.Controllers
             return View(model);
         }
 
-        // POST: Product/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
@@ -159,6 +165,11 @@ namespace FinalHPMS.Controllers
                     ModelState.AddModelError("Total", "El total no puede ser cero. Agregue productos válidos.");
                 }
 
+            if (productModel.Price <= 0 || productModel.Price > 999999)
+            {
+                ModelState.AddModelError("Price", "El precio no debe ser negativo, cero o mayor a 999999");
+                return View(productModel);
+            }
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
@@ -178,6 +189,8 @@ namespace FinalHPMS.Controllers
             }
             return View(productModel);
         }
+
+
 
         // GET: Product/Delete/5
         [Authorize(Roles = "Administrator,Supervisor")]

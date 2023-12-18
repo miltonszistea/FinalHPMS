@@ -52,11 +52,21 @@ public class UsersController : Controller
         var user = await _userManager.FindByNameAsync(model.UserName);
         if (user != null)
         {
+            // Obtener los roles actuales del usuario
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            // Eliminar al usuario de todos los roles actuales
+            await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+            // Agregar el nuevo rol al usuario
             await _userManager.AddToRoleAsync(user, model.Role);
-            RedirectToAction("Index");
+
+            return RedirectToAction("Index");
         }
+
         return RedirectToAction("Index");
     }
+
     //GET Details
         public async Task<IActionResult> Details(string userid)
         {
@@ -64,14 +74,14 @@ public class UsersController : Controller
             {
                 return NotFound();
             }
-        var user = await _userManager.FindByIdAsync(userid);
-        var Rol = await _userManager.GetRolesAsync(user);
-        var userDetailViewModel = new UserDetailViewModel
-        {
-            UserName = user.UserName,
-            Email = user.Email,
-            Role = Rol[0],
-        };
+            var user = await _userManager.FindByIdAsync(userid);
+            var Rol = await _userManager.GetRolesAsync(user);
+            var userDetailViewModel = new UserDetailViewModel
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Role = Rol[0],
+            };
 
             if (userDetailViewModel == null)
             {

@@ -70,9 +70,11 @@ public async Task<IActionResult> Edit(string rolid)
         var role = await _rolesManager.FindByNameAsync(model.RoleName);
         if (role != null)
         {
-            role.Name = model.RoleName;
-
-            await _rolesManager.UpdateAsync(role);
+            // Obtener el usuario al que se le asignará el rol
+            var user = await _userManager.GetUserAsync(User);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, userRoles);
+            await _userManager.AddToRoleAsync(user, model.RoleName);
 
             return RedirectToAction("Index");
         }
