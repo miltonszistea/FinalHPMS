@@ -33,10 +33,11 @@ public class RolesController : Controller
     [HttpPost]
     public IActionResult Create(RoleCreateViewModel model)
     {
-        if(string.IsNullOrEmpty(model.RoleName))
-        {
-              return View();  
-        }
+    if (string.IsNullOrEmpty(model.RoleName) || !IsValidRoleName(model.RoleName))
+    {
+        ModelState.AddModelError("RoleName", "El nombre del rol debe contener solo letras y tener un máximo de 25 caracteres.");
+        return View();
+    }
 
         var role = new IdentityRole(model.RoleName);
         _rolesManager.CreateAsync(role);
@@ -63,24 +64,39 @@ public async Task<IActionResult> Edit(string rolid)
     }
 
 
-    //POST Edit
-    [HttpPost]
-    public async Task<IActionResult> Edit(RoleEditViewModel model)
+// POST Edit
+[HttpPost]
+public async Task<IActionResult> Edit(RoleEditViewModel model)
+{
+    if (string.IsNullOrEmpty(model.RoleName) || !IsValidRoleName(model.RoleName))
     {
-        var role = await _rolesManager.FindByNameAsync(model.RoleName);
-        if (role != null)
-        {
-            // Obtener el usuario al que se le asignará el rol
-            var user = await _userManager.GetUserAsync(User);
-            var userRoles = await _userManager.GetRolesAsync(user);
-            await _userManager.RemoveFromRolesAsync(user, userRoles);
-            await _userManager.AddToRoleAsync(user, model.RoleName);
+        ModelState.AddModelError("RoleName", "El nombre del rol debe contener solo letras y tener un máximo de 25 caracteres.");
+        return RedirectToAction("Index");
+    }
 
+    var role = await _rolesManager.FindByNameAsync(model.CurrentRoleName);
+
+    if (role != null)
+    {
+        var existingRole = await _rolesManager.FindByNameAsync(model.RoleName);
+
+        if (existingRole != null && existingRole.Id != role.Id)
+        {
+            // Ya existe un rol con el nuevo nombre
+            ModelState.AddModelError("RoleName", "Ya existe un rol con el nuevo nombre.");
             return RedirectToAction("Index");
         }
 
+        // Actualizar el nombre del rol
+        role.Name = model.RoleName;
+        await _rolesManager.UpdateAsync(role);
+
         return RedirectToAction("Index");
     }
+
+    return RedirectToAction("Index");
+}
+
     
     //GET Details
     public async Task<IActionResult> Details(string rolid)
@@ -130,5 +146,12 @@ public async Task<IActionResult> Edit(string rolid)
             }
             return RedirectToAction(nameof(Index));
         }
+
+        private bool IsValidRoleName(string roleName)
+        {
+            // Validar que solo contiene letras y tiene un máximo de 25 caracteres
+            return !string.IsNullOrEmpty(roleName) && roleName.Length <= 25 && roleName.All(char.IsLetter);
+        }
+
 }
 
