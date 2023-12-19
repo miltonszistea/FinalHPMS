@@ -69,21 +69,46 @@ namespace FinalHPMS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Product product, ProductCreateViewModel productCreateViewModel)
         {
+            var communityList = _communityService.GetAll();
+            ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
+            .Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }), "Value", "Text");
+
             if(product.Stock < 1)
             {
-                    var communityList = _communityService.GetAll();
-                    ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
-                    .Select(c => new SelectListItem
-                    {
-                        Text = c.Name,
-                        Value = c.Id.ToString()
-                    }), "Value", "Text");
-
                 ModelState.AddModelError("Stock", "La cantidad debe ser mayor o igual a 1");
-
                 return View();
             }
             
+            if (!IsValidProductName(productCreateViewModel.Name))
+            {
+                ModelState.AddModelError("Name", "El nombre debe contener solo letras, números y espacios, y tener un máximo de 50 caracteres.");
+            }
+
+            if (!IsValidProductPrice(productCreateViewModel.Price))
+            {
+                ModelState.AddModelError("Price", "El precio debe estar entre 1 y 999999999.");
+            }
+
+            if (!IsValidProductWeight(productCreateViewModel.WeightKg))
+            {
+                ModelState.AddModelError("WeightKg", "El peso debe estar entre 1 y 999999.");
+            }
+
+            if (!IsValidProductSize(productCreateViewModel.Dimension))
+            {
+                ModelState.AddModelError("Dimension", "El formato del tamaño no es válido. Debe ser en el formato 'n1xn2xn3'.");
+            }
+
+            if (!IsValidProductStock(productCreateViewModel.Stock))
+            {
+                ModelState.AddModelError("Stock", "El stock debe estar entre 1 y 999999999.");
+            }
+
+
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
@@ -149,27 +174,56 @@ namespace FinalHPMS.Controllers
         [Authorize(Roles = "Administrator")]
         public IActionResult Edit(ProductCreateViewModel productModel)
         {
+            var communityList = _communityService.GetAll();
+            ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
+            .Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }), "Value", "Text");
+
             if (productModel.Id == 0)
             {
                 return NotFound();
             }
+
             if (productModel.CommunityIds == null)
-                {
-                    var communityList = _communityService.GetAll();
-                    ViewData["Communities"] = new SelectList(communityList.Communities.ToList()
-                    .Select(c => new SelectListItem
-                    {
-                        Text = c.Name,
-                        Value = c.Id.ToString()
-                    }), "Value", "Text");
-                    ModelState.AddModelError("Total", "El total no puede ser cero. Agregue productos válidos.");
-                }
+            {
+                ModelState.AddModelError("Total", "El total no puede ser cero. Agregue productos válidos.");
+            }
 
             if (productModel.Price <= 0 || productModel.Price > 999999)
             {
                 ModelState.AddModelError("Price", "El precio no debe ser negativo, cero o mayor a 999999");
                 return View(productModel);
             }
+
+            if (!IsValidProductName(productModel.Name))
+            {
+                ModelState.AddModelError("Name", "El nombre debe contener solo letras, números y espacios, y tener un máximo de 50 caracteres.");
+            }
+
+            if (!IsValidProductPrice(productModel.Price))
+            {
+                ModelState.AddModelError("Price", "El precio debe estar entre 1 y 999999999.");
+            }
+
+            if (!IsValidProductWeight(productModel.WeightKg))
+            {
+                ModelState.AddModelError("WeightKg", "El peso debe estar entre 1 y 999999.");
+            }
+
+            if (!IsValidProductSize(productModel.Dimension))
+            {
+                ModelState.AddModelError("Dimension", "El formato del tamaño no es válido. Debe ser en el formato 'n1xn2xn3'.");
+            }
+
+            if (!IsValidProductStock(productModel.Stock))
+            {
+                ModelState.AddModelError("Stock", "El stock debe estar entre 1 y 999999999.");
+            }
+
+
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
@@ -246,6 +300,40 @@ namespace FinalHPMS.Controllers
 
             return View(model);
         }
+
+
+
+        private bool IsValidProductName(string name)
+        {
+            // Validar que solo contiene letras, números y espacios y tiene un máximo de 50 caracteres
+            return !string.IsNullOrEmpty(name) && name.Length <= 50 && System.Text.RegularExpressions.Regex.IsMatch(name, "^[a-zA-Z0-9\\s]+$");
+        }
+
+        private bool IsValidProductPrice(double price)
+        {
+            // Validar que el precio esté entre 1 y 999999999
+            return price >= 1 && price <= 999999999;
+        }
+
+        private bool IsValidProductWeight(int weight)
+        {
+            // Validar que el peso esté entre 1 y 999999
+            return weight >= 1 && weight <= 999999;
+        }
+
+        private bool IsValidProductSize(string size)
+        {
+            // Validar el formato del tamaño (por ejemplo, "17x20x30")
+            return !string.IsNullOrEmpty(size) && System.Text.RegularExpressions.Regex.IsMatch(size, "^[0-9]{1,3}x[0-9]{1,3}x[0-9]{1,3}$");
+        }
+
+        private bool IsValidProductStock(int stock)
+        {
+            // Validar que el stock esté entre 1 y 999999999
+            return stock >= 1 && stock <= 999999999;
+        }
+
+
 
     }
 }

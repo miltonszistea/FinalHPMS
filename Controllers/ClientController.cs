@@ -10,6 +10,7 @@ using FinalHPMS.Models;
 using FinalHPMS.ViewModels;
 using FinalHPMS.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinalHPMS.Controllers
 {
@@ -63,6 +64,29 @@ namespace FinalHPMS.Controllers
             ModelState.Remove("TicketId");
             ModelState.Remove("Tickets");
             ModelState.Remove("DateAndHour");
+
+            // Validaciones personalizadas
+            if (!IsValidName(clientViewModel.Name))
+            {
+                ModelState.AddModelError("Name", "El nombre debe contener solo letras y tener un máximo de 25 caracteres.");
+            }
+
+            if (!IsValidName(clientViewModel.Apellido))
+            {
+                ModelState.AddModelError("Apellido", "El apellido debe contener solo letras y tener un máximo de 25 caracteres.");
+            }
+
+            if (!IsValidEmail(clientViewModel.Mail))
+            {
+                ModelState.AddModelError("Mail", "El formato del correo electrónico no es válido.");
+            }
+
+            if (!IsValidPhone(clientViewModel.Phone))
+            {
+                ModelState.AddModelError("Phone", "El número de teléfono debe contener solo números y tener un máximo de 20 caracteres.");
+            }
+
+
             if (ModelState.IsValid)
             {
                 var model = new Client()
@@ -106,6 +130,32 @@ namespace FinalHPMS.Controllers
             {
                 return NotFound();
             }
+
+                if (!IsValidName(client.Name))
+                {
+                    ModelState.AddModelError("Name", "El nombre debe contener solo letras y tener un máximo de 25 caracteres.");
+                }
+
+                if (!IsValidName(client.Apellido))
+                {
+                    ModelState.AddModelError("Apellido", "El apellido debe contener solo letras y tener un máximo de 25 caracteres.");
+                }
+
+                if (!IsValidEmail(client.Mail))
+                {
+                    ModelState.AddModelError("Mail", "El formato del correo electrónico no es válido.");
+                }
+
+                if (!IsValidPhone(client.Phone))
+                {
+                    ModelState.AddModelError("Phone", "El número de teléfono debe contener solo números y tener un máximo de 20 caracteres.");
+                }
+
+                if (!IsValidAddress(client.Address))
+                {
+                    ModelState.AddModelError("Address", "La dirección debe contener solo letras, números y espacios, y tener un máximo de 40 caracteres.");
+                }
+
             ModelState.Remove("Communities");
             if (ModelState.IsValid)
             {
@@ -169,5 +219,35 @@ namespace FinalHPMS.Controllers
 
             return View(model);
         }
+
+
+
+
+
+        // Funciones de validación personalizadas
+        private bool IsValidName(string name)
+        {
+            // Validar que solo contiene letras y tiene un máximo de 25 caracteres
+            return !string.IsNullOrEmpty(name) && name.Length <= 25 && name.All(char.IsLetter);
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            // Validar el formato de correo electrónico
+            return !string.IsNullOrEmpty(email) && new EmailAddressAttribute().IsValid(email);
+        }
+
+        private bool IsValidPhone(string phone)
+        {
+            // Validar que solo contiene números y tiene un máximo de 20 caracteres
+            return !string.IsNullOrEmpty(phone) && phone.Length <= 20 && phone.All(char.IsDigit);
+        }
+
+        private bool IsValidAddress(string address)
+        {
+            // Validar que solo contiene letras, números y espacios y tiene un máximo de 40 caracteres
+            return !string.IsNullOrEmpty(address) && address.Length <= 40 && System.Text.RegularExpressions.Regex.IsMatch(address, "^[a-zA-Z0-9\\s]+$");
+        }
+
     }
 }

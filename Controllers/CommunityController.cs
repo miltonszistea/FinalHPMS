@@ -10,6 +10,7 @@ using FinalHPMS.Models;
 using FinalHPMS.ViewModels;
 using FinalHPMS.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinalHPMS.Controllers
 {
@@ -89,6 +90,31 @@ namespace FinalHPMS.Controllers
             ModelState.Remove("Products");
             ModelState.Remove("ProductId");
             ModelState.Remove("TicketId");
+
+        if (!IsValidBranchCommunity(communityViewModel.Name))
+        {
+            ModelState.AddModelError("Name", "El nombre de la comunidad debe contener solo letras y tener un máximo de 50 caracteres.");
+        }
+
+        if (!IsValidBranchCityCountry(communityViewModel.CityAndCountry))
+        {
+            ModelState.AddModelError("CityAndCountry", "La ciudad y país deben contener solo letras y espacios, y tener un máximo de 50 caracteres.");
+        }
+
+        if (!IsValidBranchAddress(communityViewModel.Address))
+        {
+            ModelState.AddModelError("Address", "El formato de la dirección no es válido. Debe contener solo letras, números y espacios, y tener un máximo de 40 caracteres.");
+        }
+
+        if (!IsValidBranchPhone(communityViewModel.Phone))
+        {
+            ModelState.AddModelError("Phone", "El número de teléfono debe contener solo números y tener un máximo de 20 caracteres.");
+        }
+
+        if (!IsValidBranchEmail(communityViewModel.Mail))
+        {
+            ModelState.AddModelError("Mail", "El formato del correo electrónico no es válido.");
+        }
             if (ModelState.IsValid)
             {
                 var model = new Community()
@@ -100,6 +126,7 @@ namespace FinalHPMS.Controllers
                     Mail = communityViewModel.Mail,
                     CommunityType = communityViewModel.CommunityType,
                 };
+                _communityService.Create(model);
                 return RedirectToAction(nameof(Index));
             }
             return View(communityViewModel);
@@ -133,6 +160,32 @@ namespace FinalHPMS.Controllers
                 return NotFound();
             }
             ModelState.Remove("Communities");
+
+            if (!IsValidBranchCommunity(community.Name))
+            {
+                ModelState.AddModelError("Name", "El nombre de la comunidad debe contener solo letras y tener un máximo de 50 caracteres.");
+            }
+
+            if (!IsValidBranchCityCountry(community.CityAndCountry))
+            {
+                ModelState.AddModelError("CityAndCountry", "La ciudad y país deben contener solo letras y espacios, y tener un máximo de 50 caracteres.");
+            }
+
+            if (!IsValidBranchAddress(community.Address))
+            {
+                ModelState.AddModelError("Address", "El formato de la dirección no es válido. Debe contener solo letras, números y espacios, y tener un máximo de 40 caracteres.");
+            }
+
+            if (!IsValidBranchPhone(community.Phone))
+            {
+                ModelState.AddModelError("Phone", "El número de teléfono debe contener solo números y tener un máximo de 20 caracteres.");
+            }
+
+            if (!IsValidBranchEmail(community.Mail))
+            {
+                ModelState.AddModelError("Mail", "El formato del correo electrónico no es válido.");
+            }
+
             if (ModelState.IsValid)
             {
                 _communityService.Update(community, id);
@@ -173,12 +226,6 @@ namespace FinalHPMS.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // private bool CommunityExists(int id)
-        // {
-        //   return _communityService.GetCommunity(id) != null;
-        // }
-
-
 
         public async Task<IActionResult> Tickets(int id)
         {
@@ -200,6 +247,32 @@ namespace FinalHPMS.Controllers
             }
 
             return View(model);
+        }
+
+        private bool IsValidBranchCommunity(string community)
+        {
+            // Validar que solo contiene letras y tiene un máximo de 50 caracteres
+            return !string.IsNullOrEmpty(community) && community.Length <= 50 && community.All(char.IsLetter);
+        }
+        private bool IsValidBranchCityCountry(string cityCountry)
+        {
+            // Validar que solo contiene letras y espacios, y tiene un máximo de 50 caracteres
+            return !string.IsNullOrEmpty(cityCountry) && cityCountry.Length <= 50 && cityCountry.All(c => char.IsLetter(c) || char.IsWhiteSpace(c));
+        }
+        private bool IsValidBranchAddress(string address)
+        {
+            // Validar que la dirección tenga solo letras, números y espacios, y tiene un máximo de 40 caracteres
+            return !string.IsNullOrEmpty(address) && address.Length <= 40 && address.All(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c));
+        }
+        private bool IsValidBranchPhone(string phone)
+        {
+            // Validar que el teléfono tenga solo números y tiene un máximo de 20 caracteres
+            return !string.IsNullOrEmpty(phone) && phone.Length <= 20 && phone.All(char.IsDigit);
+        }
+        private bool IsValidBranchEmail(string email)
+        {
+            // Validar el formato de correo electrónico
+            return !string.IsNullOrEmpty(email) && new EmailAddressAttribute().IsValid(email);
         }
     }
 }

@@ -17,6 +17,8 @@ public class ClientCreateViewModel{
     public required string Apellido { get; set; }
     
     [Display(Name="Dirección")]
+    [StringLength(40, ErrorMessage = "La dirección no puede tener más de 40 caracteres.")]
+    [RegularExpression(@"^[a-zA-Z0-9\s]+$", ErrorMessage = "La dirección debe contener solo letras, números y espacios.")]
     [Required]
     public required string Address { get; set; }
     
@@ -26,6 +28,7 @@ public class ClientCreateViewModel{
 
     [Display(Name="Mail")]
     [Required]
+    [EmailAddress]
     public required string Mail { get; set; }
 
     [Display(Name="Fecha y Hora")]
